@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Map.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Toddler.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/Game.gd" type="Script" id=3]
+
+[node name="Game" type="Node2D"]
+position = Vector2( 517, 363 )
+script = ExtResource( 3 )
+
+[node name="Toddler" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -48 )
+
+[node name="Map" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 0 )
+
+[connection signal="request_path_to_hazard" from="Toddler" to="." method="_on_Toddler_request_path_to_hazard"]
+[connection signal="request_path_to_other_room" from="Toddler" to="." method="_on_Toddler_request_path_to_other_room"]
