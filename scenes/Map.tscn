@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/LivingRoom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/PlayRoom.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/Map.gd" type="Script" id=3]
 [ext_resource path="res://scripts/Room.gd" type="Script" id=4]
 [ext_resource path="res://scenes/KitchenRoom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/background/kindergarden.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 54, 1.5 )
@@ -55,10 +56,15 @@ extents = Vector2( 29, 1.5 )
 extents = Vector2( 1.5, 5 )
 
 [node name="Map" type="Node2D"]
-position = Vector2( 496, 192 )
 script = ExtResource( 3 )
 
+[node name="Background" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+centered = false
+
 [node name="Rooms" type="Node2D" parent="."]
+position = Vector2( 71, 129 )
 script = ExtResource( 4 )
 
 [node name="LivingRoom" parent="Rooms" instance=ExtResource( 1 )]
@@ -71,6 +77,7 @@ position = Vector2( 0, -52 )
 position = Vector2( 83, -1 )
 
 [node name="Walls" type="KinematicBody2D" parent="."]
+position = Vector2( 71, 129 )
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="Walls"]
 position = Vector2( 0, 26.5 )

@@ -7,6 +7,8 @@ onready var rotation_timer = $RotationTimer
 onready var walking_timer = $WalkingTimer
 onready var target_timer = $TargetTimer
 onready var wait_timer = $WaitTimer
+onready var animated_sprite = $AnimatedSprite
+
 
 var rotation_speed = PI
 var rotation_direction = 0
@@ -23,6 +25,7 @@ var targets : Array
 var target : Vector2
 
 func _ready():
+	animated_sprite.play("default")
 	randomize()
 	_on_RotationTimer_timeout()
 	_on_WalkingTimer_timeout()

@@ -14,6 +14,16 @@ config/name="KinderKaos"
 config/description="Intense nanny experience, kids will die!"
 run/main_scene="res://scenes/Game.tscn"
 
+[display]
+
+window/size/height=576
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
+[global]
+
+display=false
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
