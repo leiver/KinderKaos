@@ -14,6 +14,7 @@ var rotation_speed = PI
 var rotation_direction = 0
 var speed = 100
 var direction = rotation
+var velocity = Vector2.ZERO
 
 var walking = false
 var walking_to_target = false
@@ -29,7 +30,7 @@ func _ready():
 	randomize()
 	_on_RotationTimer_timeout()
 	_on_WalkingTimer_timeout()
-	target_timer.start(rand_range(5, 20))
+	target_timer.start(rand_range(2, 5))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,18 +40,35 @@ func _process(delta):
 			walk_towards_target(delta)
 		else:
 			idle(delta)
+	set_animation()
+
+
+func set_animation():
+	if not waiting and (walking or walking_to_hazard or walking_to_target):
+		if abs(velocity.x) > abs(velocity.y):
+			if velocity.x > 0:
+				animated_sprite.play("walk_right")
+			else:
+				animated_sprite.play("walk_left")
+		else:
+			if velocity.y > 0:
+				animated_sprite.play("walk_down")
+			else:
+				animated_sprite.play("walk_up")
+	else:
+		animated_sprite.play("default")
 
 
 func idle(delta):
 	direction = fmod(direction + (rotation_speed * delta * rotation_direction) + (PI*2), PI*2)
 	if walking:
-		var velocity = Vector2.UP.rotated(direction) * speed
+		velocity = Vector2.UP.rotated(direction) * speed
 		move_and_collide(velocity * delta)
 
 
 func walk_towards_target(delta):
 	direction = fmod(position.angle_to_point(target) + (PI*1.5), PI*2)
-	var velocity = Vector2.UP.rotated(direction) * speed * delta
+	velocity = Vector2.UP.rotated(direction) * speed * delta
 	var distance_to_target = position.distance_to(target)
 	var new_position = position + velocity
 	var distance_to_new_position = position.distance_to(new_position)
@@ -61,7 +79,7 @@ func walk_towards_target(delta):
 				dead = true
 			walking_to_target = false
 			walking_to_hazard = false
-			target_timer.start(rand_range(5, 20))
+			target_timer.start(rand_range(2, 5))
 		else:
 			target = targets.pop_front()
 	else:
@@ -78,9 +96,9 @@ func _on_WalkingTimer_timeout():
 	walking = not walking
 	speed = rand_range(25, 50)
 	if walking:
-		walking_timer.start(rand_range(0.5, 2))
+		walking_timer.start(rand_range(2, 4))
 	else:
-		walking_timer.start(rand_range(3, 6))
+		walking_timer.start(rand_range(1, 3))
 
 
 func _on_TargetTimer_timeout():
@@ -94,6 +112,7 @@ func _on_TargetTimer_timeout():
 	
 
 func receive_path_to_room(received_targets : Array):
+	print(received_targets)
 	targets = received_targets
 	target = targets.pop_front()
 	walking_to_target = true

@@ -1,17 +1,34 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/Room.tscn" type="PackedScene" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 54, 29 )
+extents = Vector2( 118, 115 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32.5, 18 )
 
 [node name="LivingRoom" instance=ExtResource( 1 )]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds" index="0"]
+position = Vector2( -1, 20 )
 shape = SubResource( 1 )
 
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Bounds" index="1"]
+position = Vector2( -0.5, 153 )
+shape = SubResource( 2 )
+
 [node name="PlayRoom" type="Position2D" parent="Entryways" index="0"]
-position = Vector2( 0, -16 )
+position = Vector2( 97, -39 )
 
 [node name="KitchenRoom" type="Position2D" parent="Entryways" index="1"]
-position = Vector2( 40, 0 )
+position = Vector2( 99, 97 )
+
+[node name="BathRoom" type="Position2D" parent="Entryways" index="2"]
+position = Vector2( -101, 97 )
+
+[node name="BackYard" type="Position2D" parent="Entryways" index="3"]
+position = Vector2( 0, -72 )
+
+[node name="FrontYard" type="Position2D" parent="Entryways" index="4"]
+position = Vector2( 0, 109 )
