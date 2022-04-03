@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/game/Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/toddlers/Toddler.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=3]
 [ext_resource path="res://assets/background/kindergarden_frame.png" type="Texture" id=4]
+[ext_resource path="res://assets/sounds/main_theme_voices.mp3" type="AudioStream" id=5]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -39,5 +40,10 @@ id = 5
 
 [node name="RoamingToddlerTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -4.0
+autoplay = true
 
 [connection signal="timeout" from="RoamingToddlerTimer" to="." method="_on_RoamingToddlerTimer_timeout"]
