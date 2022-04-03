@@ -15,7 +15,7 @@ position = Vector2( 31, -29 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Bounds" index="1"]
-position = Vector2( 1, -126 )
+position = Vector2( 2, -126 )
 shape = SubResource( 2 )
 
 [node name="LivingRoom" type="Position2D" parent="Entryways" index="0"]

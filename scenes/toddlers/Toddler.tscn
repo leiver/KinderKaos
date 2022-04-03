@@ -134,7 +134,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 12, 7 )
+extents = Vector2( 12, 18 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 7 )
@@ -151,10 +151,10 @@ animation = "picked_up"
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 1, -17 )
-collision_mask = 6
+collision_mask = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -1, 17 )
+position = Vector2( -1, 6 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -212,6 +212,7 @@ position = Vector2( 29, -43 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 
+[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="timeout" from="Timers/RotationTimer" to="." method="_on_RotationTimer_timeout"]
 [connection signal="timeout" from="Timers/WalkingTimer" to="." method="_on_WalkingTimer_timeout"]
 [connection signal="timeout" from="Timers/WaitTimer" to="." method="_on_WaitTimer_timeout"]

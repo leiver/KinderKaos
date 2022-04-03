@@ -15,4 +15,8 @@ collision_layer = 2
 [node name="Hazards" type="Area2D" parent="."]
 collision_layer = 4
 
+[node name="ItemSource" type="Area2D" parent="."]
+collision_layer = 2
+
 [connection signal="area_entered" from="Hazards" to="." method="_on_Hazards_area_entered"]
+[connection signal="area_shape_entered" from="ItemSource" to="." method="_on_ItemSource_area_shape_entered"]

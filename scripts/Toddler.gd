@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal kill_me
+signal path_me_to_outlet
 
 onready var rotation_timer = $Timers/RotationTimer
 onready var walking_timer = $Timers/WalkingTimer
@@ -14,6 +15,7 @@ onready var timers = $Timers
 onready var animated_sprite = $AnimatedSprite
 onready var hunger_bubble = $SpeechBubbles/HungerBubble
 onready var poop_bubble = $SpeechBubbles/PoopBubble
+onready var fork_bubble = $SpeechBubbles/ForkBubble
 onready var speech_bubbles = $SpeechBubbles
 
 export var id : int
@@ -32,6 +34,7 @@ var hungry_or_poopy_diaper = false
 var hungry = false
 var poopy_diaper = false
 var holding_hazardous_object = false
+var holding_fork = false
 var being_held = false
 
 var targets : Array
@@ -99,10 +102,15 @@ func walk_towards_target(delta):
 
 
 func receive_path_to_target(received_targets : Array):
-	if received_targets.size() > 0:
+	if received_targets.size() > 0 and not walking_to_target:
 		targets = received_targets
 		target = targets.pop_front()
 		walking_to_target = true
+
+
+func disable_timers():
+	for timer in timers.get_children():
+		timer.stop()
 
 
 func kill():
@@ -110,14 +118,14 @@ func kill():
 	hungry = false
 	hungry_or_poopy_diaper = false
 	holding_hazardous_object = false
-	for timer in timers.get_children():
-		timer.stop()
+	disable_timers()
 	for speech_bubble in speech_bubbles.get_children():
 		speech_bubble.visible = false
 
 
 func picked_up():
 	holding_hazardous_object = false
+	fork_bubble.visible = false
 	being_held = true
 	suicidal_thoughts_timer.stop()
 	walking_to_target = false
@@ -144,17 +152,26 @@ func clean_diaper():
 	start_hunger_timer()
 
 
+func receive_hazardous_object(hazardous_object):
+	if not hungry_or_poopy_diaper:
+		holding_hazardous_object = true
+		if hazardous_object == "Fork":
+			walking_to_target = false
+			emit_signal("path_me_to_outlet", self)
+			fork_bubble.visible = true
+			holding_fork = true
+
+
 func start_suicidal_thoughts_timer():
 	suicidal_thoughts_timer.start(rand_range(10, 30))
 
 
 func start_hunger_timer():
-	hunger_timer.start(rand_range(10, 30))
+	hunger_timer.start(rand_range(10, 60))
 
 
 func start_poop_timer():
-	print("starting poop timer for kid %s" % id)
-	poop_timer.start(rand_range(10, 30))
+	poop_timer.start(rand_range(10, 60))
 
 
 func start_dysentry_timer():
@@ -181,8 +198,9 @@ func _on_WaitTimer_timeout():
 
 
 func _on_SuicidalThoughtsTimer_timeout():
-	emit_signal("kill_me", self)
-	start_suicidal_thoughts_timer()
+	if not walking_to_target:
+		emit_signal("kill_me", self)
+		start_suicidal_thoughts_timer()
 
 
 func _on_HungerTimer_timeout():
@@ -200,7 +218,6 @@ func _on_StarvationTimer_timeout():
 
 
 func _on_PoopTimer_timeout():
-	print("poop timer popped for kid %s" % id)
 	if holding_hazardous_object:
 		start_poop_timer()
 	else:
@@ -212,3 +229,8 @@ func _on_PoopTimer_timeout():
 
 func _on_DysentryTimer_timeout():
 	kill()
+
+
+func _on_Area2D_area_entered(area):
+	if area.name == "Outlet" and holding_fork:
+		kill()

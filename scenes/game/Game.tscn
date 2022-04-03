@@ -43,7 +43,7 @@ position = Vector2( 488, 92 )
 id = 3
 
 [node name="Toddler4" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 732, 334 )
+position = Vector2( 795, 359 )
 id = 4
 
 [node name="Toddler5" parent="Toddlers" instance=ExtResource( 2 )]
@@ -66,5 +66,19 @@ stream = ExtResource( 5 )
 volume_db = -4.0
 autoplay = true
 
+[node name="GameOverTimer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+autostart = true
+
+[node name="RestartButton" type="Button" parent="."]
+visible = false
+margin_left = 359.0
+margin_top = 195.0
+margin_right = 678.0
+margin_bottom = 336.0
+
 [connection signal="let_down_toddler" from="Teacher" to="." method="_on_Teacher_let_down_toddler"]
 [connection signal="timeout" from="RoamingToddlerTimer" to="." method="_on_RoamingToddlerTimer_timeout"]
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]
+[connection signal="pressed" from="RestartButton" to="." method="_on_RestartButton_pressed"]

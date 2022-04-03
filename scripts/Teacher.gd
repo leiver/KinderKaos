@@ -71,6 +71,7 @@ func handle_pick_up():
 			elif "CookieJar" == area.name:
 				is_holding_cookie = true
 				cookieSprite.visible = true
+				break
 
 
 func set_animation():
