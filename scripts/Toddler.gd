@@ -6,8 +6,12 @@ onready var rotation_timer = $Timers/RotationTimer
 onready var walking_timer = $Timers/WalkingTimer
 onready var wait_timer = $Timers/WaitTimer
 onready var suicidal_thoughts_timer = $Timers/SuicidalThoughtsTimer
+onready var hunger_timer = $Timers/HungerTimer
+onready var starvation_timer = $Timers/StarvationTimer
 onready var timers = $Timers
 onready var animated_sprite = $AnimatedSprite
+onready var hunger_bubble = $SpeechBubbles/HungerBubble
+onready var speech_bubbles = $SpeechBubbles
 
 export var id : int
 
@@ -21,6 +25,7 @@ var walking = false
 var walking_to_target = false
 var dead = false
 var waiting = false
+var hungry = true
 
 var targets : Array
 var target : Vector2
@@ -30,10 +35,10 @@ func _ready():
 	randomize()
 	_on_RotationTimer_timeout()
 	_on_WalkingTimer_timeout()
-	suicidal_thoughts_timer.start(rand_range(5, 10))
+	start_suicidal_thoughts_timer()
+	start_hunger_timer()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not dead and not waiting:
 		if walking_to_target:
@@ -72,9 +77,7 @@ func walk_towards_target(delta):
 	direction = fmod(position.angle_to_point(target) + (PI*1.5), PI*2)
 	velocity = Vector2.UP.rotated(direction) * speed * delta
 	var distance_to_target = position.distance_to(target)
-	var new_position = position + velocity
-	var distance_to_new_position = position.distance_to(new_position)
-	if distance_to_target < distance_to_new_position:
+	if distance_to_target < position.distance_to(position + velocity):
 		position = target
 		if targets.size() == 0:
 			walking_to_target = false
@@ -84,6 +87,36 @@ func walk_towards_target(delta):
 			waiting = true
 	else:
 		move_and_collide(velocity)
+
+
+func receive_path_to_target(received_targets : Array):
+	if received_targets.size() > 0:
+		targets = received_targets
+		target = targets.pop_front()
+		walking_to_target = true
+
+
+func kill():
+	dead = true
+	for timer in timers.get_children():
+		timer.stop()
+	for speech_bubble in speech_bubbles.get_children():
+		speech_bubble.visible = false
+
+
+func feed():
+	hungry = false
+	starvation_timer.stop()
+	hunger_bubble.visible = true
+	start_hunger_timer()
+
+
+func start_suicidal_thoughts_timer():
+	suicidal_thoughts_timer.start(rand_range(5, 10))
+
+
+func start_hunger_timer():
+	hunger_timer.start(rand_range(30, 120))
 
 
 func _on_RotationTimer_timeout():
@@ -101,23 +134,20 @@ func _on_WalkingTimer_timeout():
 		walking_timer.start(rand_range(1, 3))
 
 
-func receive_path_to_target(received_targets : Array):
-	if received_targets.size() > 0:
-		targets = received_targets
-		target = targets.pop_front()
-		walking_to_target = true
-
-
 func _on_WaitTimer_timeout():
 	waiting = false
 
 
-func kill():
-	dead = true
-	for timer in timers.get_children():
-		timer.stop()
-
-
 func _on_SuicidalThoughtsTimer_timeout():
 	emit_signal("kill_me", self)
-	suicidal_thoughts_timer.start(rand_range(5, 10))
+	start_suicidal_thoughts_timer()
+
+
+func _on_HungerTimer_timeout():
+	hungry = true
+	hunger_bubble.visible = true
+	starvation_timer.start(30)
+
+
+func _on_StarvationTimer_timeout():
+	kill()

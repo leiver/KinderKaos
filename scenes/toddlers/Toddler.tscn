@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scripts/Toddler.gd" type="Script" id=1]
-[ext_resource path="res://assets/toddler.png" type="Texture" id=2]
+[ext_resource path="res://assets/doodads/hunger_speech_bubble.png" type="Texture" id=2]
 [ext_resource path="res://assets/spritesheets/toddler_01.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=3]
@@ -131,15 +131,10 @@ extents = Vector2( 12, 7 )
 collision_mask = 2
 script = ExtResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 2 )
-
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 1, -11 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 24 )
-animation = "dead"
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 1, -17 )
@@ -164,8 +159,25 @@ one_shot = true
 one_shot = true
 
 [node name="SuicidalThoughtsTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="HungerTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="StarvationTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="SpeechBubbles" type="Node2D" parent="."]
+
+[node name="HungerBubble" type="Sprite" parent="SpeechBubbles"]
+visible = false
+position = Vector2( 31, -47 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
 
 [connection signal="timeout" from="Timers/RotationTimer" to="." method="_on_RotationTimer_timeout"]
 [connection signal="timeout" from="Timers/WalkingTimer" to="." method="_on_WalkingTimer_timeout"]
 [connection signal="timeout" from="Timers/WaitTimer" to="." method="_on_WaitTimer_timeout"]
 [connection signal="timeout" from="Timers/SuicidalThoughtsTimer" to="." method="_on_SuicidalThoughtsTimer_timeout"]
+[connection signal="timeout" from="Timers/HungerTimer" to="." method="_on_HungerTimer_timeout"]
+[connection signal="timeout" from="Timers/StarvationTimer" to="." method="_on_StarvationTimer_timeout"]
