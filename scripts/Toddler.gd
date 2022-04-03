@@ -8,9 +8,12 @@ onready var wait_timer = $Timers/WaitTimer
 onready var suicidal_thoughts_timer = $Timers/SuicidalThoughtsTimer
 onready var hunger_timer = $Timers/HungerTimer
 onready var starvation_timer = $Timers/StarvationTimer
+onready var poop_timer = $Timers/PoopTimer
+onready var dysentry_timer = $Timers/DysentryTimer
 onready var timers = $Timers
 onready var animated_sprite = $AnimatedSprite
 onready var hunger_bubble = $SpeechBubbles/HungerBubble
+onready var poop_bubble = $SpeechBubbles/PoopBubble
 onready var speech_bubbles = $SpeechBubbles
 
 export var id : int
@@ -25,7 +28,9 @@ var walking = false
 var walking_to_target = false
 var dead = false
 var waiting = false
-var hungry = true
+var hungry_or_poopy_diaper = false
+var holding_hazardous_object = false
+var being_held = false
 
 var targets : Array
 var target : Vector2
@@ -40,7 +45,7 @@ func _ready():
 
 
 func _process(delta):
-	if not dead and not waiting:
+	if not dead and not waiting and not being_held:
 		if walking_to_target:
 			walk_towards_target(delta)
 		else:
@@ -104,19 +109,46 @@ func kill():
 		speech_bubble.visible = false
 
 
+func picked_up():
+	holding_hazardous_object = false
+	being_held = true
+	suicidal_thoughts_timer.stop()
+	walking_to_target = false
+
+
+func let_down():
+	being_held = false
+	suicidal_thoughts_timer.start(3)
+
+
 func feed():
-	hungry = false
+	hungry_or_poopy_diaper = false
 	starvation_timer.stop()
-	hunger_bubble.visible = true
+	hunger_bubble.visible = false
+	start_poop_timer()
+
+
+func clean_diaper():
+	hungry_or_poopy_diaper = false
+	dysentry_timer.stop()
+	poop_bubble.visible = false
 	start_hunger_timer()
 
 
 func start_suicidal_thoughts_timer():
-	suicidal_thoughts_timer.start(rand_range(5, 10))
+	suicidal_thoughts_timer.start(rand_range(10, 30))
 
 
 func start_hunger_timer():
 	hunger_timer.start(rand_range(30, 120))
+
+
+func start_poop_timer():
+	poop_timer.start(rand_range(30, 120))
+
+
+func start_dysentry_timer():
+	dysentry_timer.start(60)
 
 
 func _on_RotationTimer_timeout():
@@ -144,10 +176,26 @@ func _on_SuicidalThoughtsTimer_timeout():
 
 
 func _on_HungerTimer_timeout():
-	hungry = true
-	hunger_bubble.visible = true
-	starvation_timer.start(30)
+	if holding_hazardous_object:
+		start_hunger_timer()
+	else:
+		hungry_or_poopy_diaper = true
+		hunger_bubble.visible = true
+		starvation_timer.start(30)
 
 
 func _on_StarvationTimer_timeout():
+	kill()
+
+
+func _on_PoopTimer_timeout():
+	if holding_hazardous_object:
+		start_poop_timer()
+	else:
+		hungry_or_poopy_diaper = true
+		poop_bubble.visible = true
+		start_dysentry_timer()
+
+
+func _on_DysentryTimer_timeout():
 	kill()

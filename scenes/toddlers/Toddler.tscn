@@ -1,8 +1,11 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scripts/Toddler.gd" type="Script" id=1]
-[ext_resource path="res://assets/doodads/hunger_speech_bubble.png" type="Texture" id=2]
+[ext_resource path="res://assets/bubbles/cookie_bubble.png" type="Texture" id=2]
 [ext_resource path="res://assets/spritesheets/toddler_01.png" type="Texture" id=3]
+[ext_resource path="res://assets/bubbles/scissor_bubble.png" type="Texture" id=4]
+[ext_resource path="res://assets/bubbles/fork_bubble.png" type="Texture" id=5]
+[ext_resource path="res://assets/bubbles/poop_bubble.png" type="Texture" id=6]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -167,13 +170,35 @@ one_shot = true
 [node name="StarvationTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="PoopTimer" type="Timer" parent="Timers"]
+
+[node name="DysentryTimer" type="Timer" parent="Timers"]
+
 [node name="SpeechBubbles" type="Node2D" parent="."]
 
 [node name="HungerBubble" type="Sprite" parent="SpeechBubbles"]
 visible = false
-position = Vector2( 31, -47 )
+position = Vector2( 29, -43 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
+
+[node name="ForkBubble" type="Sprite" parent="SpeechBubbles"]
+visible = false
+position = Vector2( 29, -43 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 5 )
+
+[node name="PoopBubble" type="Sprite" parent="SpeechBubbles"]
+visible = false
+position = Vector2( 29, -43 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+
+[node name="ScissorBubble" type="Sprite" parent="SpeechBubbles"]
+visible = false
+position = Vector2( 29, -43 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
 
 [connection signal="timeout" from="Timers/RotationTimer" to="." method="_on_RotationTimer_timeout"]
 [connection signal="timeout" from="Timers/WalkingTimer" to="." method="_on_WalkingTimer_timeout"]
@@ -181,3 +206,5 @@ texture = ExtResource( 2 )
 [connection signal="timeout" from="Timers/SuicidalThoughtsTimer" to="." method="_on_SuicidalThoughtsTimer_timeout"]
 [connection signal="timeout" from="Timers/HungerTimer" to="." method="_on_HungerTimer_timeout"]
 [connection signal="timeout" from="Timers/StarvationTimer" to="." method="_on_StarvationTimer_timeout"]
+[connection signal="timeout" from="Timers/PoopTimer" to="." method="_on_PoopTimer_timeout"]
+[connection signal="timeout" from="Timers/DysentryTimer" to="." method="_on_DysentryTimer_timeout"]

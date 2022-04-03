@@ -7,7 +7,7 @@
 extents = Vector2( 268, 37 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 24.5, 22 )
+extents = Vector2( 18.5, 16.5 )
 
 [node name="BackYard" instance=ExtResource( 1 )]
 
@@ -22,7 +22,7 @@ position = Vector2( -61, 14 )
 position = Vector2( -264, 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards" index="0"]
-position = Vector2( 218.5, -12 )
+position = Vector2( 224.5, -17.5 )
 shape = SubResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="." index="4"]
