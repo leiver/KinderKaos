@@ -29,6 +29,8 @@ var walking_to_target = false
 var dead = false
 var waiting = false
 var hungry_or_poopy_diaper = false
+var hungry = false
+var poopy_diaper = false
 var holding_hazardous_object = false
 var being_held = false
 
@@ -105,6 +107,9 @@ func receive_path_to_target(received_targets : Array):
 
 func kill():
 	dead = true
+	hungry = false
+	hungry_or_poopy_diaper = false
+	holding_hazardous_object = false
 	for timer in timers.get_children():
 		timer.stop()
 	for speech_bubble in speech_bubbles.get_children():
@@ -125,6 +130,7 @@ func let_down():
 
 func feed():
 	hungry_or_poopy_diaper = false
+	hungry = false
 	starvation_timer.stop()
 	hunger_bubble.visible = false
 	start_poop_timer()
@@ -132,6 +138,7 @@ func feed():
 
 func clean_diaper():
 	hungry_or_poopy_diaper = false
+	poopy_diaper = false
 	dysentry_timer.stop()
 	poop_bubble.visible = false
 	start_hunger_timer()
@@ -142,11 +149,12 @@ func start_suicidal_thoughts_timer():
 
 
 func start_hunger_timer():
-	hunger_timer.start(rand_range(30, 120))
+	hunger_timer.start(rand_range(10, 30))
 
 
 func start_poop_timer():
-	poop_timer.start(rand_range(30, 120))
+	print("starting poop timer for kid %s" % id)
+	poop_timer.start(rand_range(10, 30))
 
 
 func start_dysentry_timer():
@@ -182,6 +190,7 @@ func _on_HungerTimer_timeout():
 		start_hunger_timer()
 	else:
 		hungry_or_poopy_diaper = true
+		hungry = true
 		hunger_bubble.visible = true
 		starvation_timer.start(30)
 
@@ -191,10 +200,12 @@ func _on_StarvationTimer_timeout():
 
 
 func _on_PoopTimer_timeout():
+	print("poop timer popped for kid %s" % id)
 	if holding_hazardous_object:
 		start_poop_timer()
 	else:
 		hungry_or_poopy_diaper = true
+		poopy_diaper = true
 		poop_bubble.visible = true
 		start_dysentry_timer()
 

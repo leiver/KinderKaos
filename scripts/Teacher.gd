@@ -3,11 +3,13 @@ extends KinematicBody2D
 
 export (int) var speed = 100
 var velocity = Vector2()
-var is_holding = false
+var is_holding_toddler = false
+var is_holding_cookie = false
 var held_toddler = null
 
 onready var pickup_box = $PickupBox
 onready var animatedSprite = $AnimatedSprite
+onready var cookieSprite = $Cookie
 
 signal let_down_toddler
 
@@ -37,11 +39,23 @@ func get_input():
 
 
 func handle_pick_up():
-	if is_holding:
+	if is_holding_toddler:
+		if held_toddler.poopy_diaper:
+			for area in pickup_box.get_overlapping_areas():
+				if "ChangingTable" == area.name:
+					print("cleaning diaper of kid %s" % held_toddler.id)
+					held_toddler.clean_diaper()
+					return
 		held_toddler.let_down()
 		remove_child(held_toddler)
 		emit_signal("let_down_toddler", held_toddler, position)
-		is_holding = false
+		is_holding_toddler = false
+	elif is_holding_cookie:
+		for area in pickup_box.get_overlapping_areas():
+			if "Toddler" in area.get_parent().name and area.get_parent().hungry:
+				area.get_parent().feed()
+		cookieSprite.visible = false
+		is_holding_cookie = false
 	else:
 		var overlapping_areas = pickup_box.get_overlapping_areas()
 		for area in overlapping_areas:
@@ -52,8 +66,11 @@ func handle_pick_up():
 				held_toddler = toddler
 				toddler.position = Vector2(0, 25)
 				toddler.picked_up()
-				is_holding = true
+				is_holding_toddler = true
 				break
+			elif "CookieJar" == area.name:
+				is_holding_cookie = true
+				cookieSprite.visible = true
 
 
 func set_animation():

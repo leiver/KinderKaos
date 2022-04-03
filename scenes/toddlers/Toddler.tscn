@@ -181,8 +181,10 @@ one_shot = true
 one_shot = true
 
 [node name="PoopTimer" type="Timer" parent="Timers"]
+one_shot = true
 
 [node name="DysentryTimer" type="Timer" parent="Timers"]
+one_shot = true
 
 [node name="SpeechBubbles" type="Node2D" parent="."]
 
