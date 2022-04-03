@@ -17,7 +17,10 @@ func _ready():
 
 
 func _on_RoamingToddlerTimer_timeout():
-	route_toddler_to_room(toddlers.get_children()[randi() % toddlers.get_children().size()])
+	for toddler in toddlers.get_children():
+		if not toddler.walking_to_target and map.rooms_with_toddler(toddler):
+			route_toddler_to_room(toddlers.get_children()[randi() % toddlers.get_children().size()])
+			break
 	start_roaming_toddler_timer()
 
 
@@ -44,7 +47,7 @@ func connect_to_toddlers():
 
 
 func start_roaming_toddler_timer():
-	roaming_toddler_timer.start(rand_range(3, 8))
+	roaming_toddler_timer.start(rand_range(3, 5))
 
 
 func _on_Toddler_kill_me(source):

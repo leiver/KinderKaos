@@ -43,7 +43,6 @@ func handle_pick_up():
 		if held_toddler.poopy_diaper:
 			for area in pickup_box.get_overlapping_areas():
 				if "ChangingTable" == area.name:
-					print("cleaning diaper of kid %s" % held_toddler.id)
 					held_toddler.clean_diaper()
 					return
 		held_toddler.let_down()

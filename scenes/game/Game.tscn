@@ -19,16 +19,20 @@ script = ExtResource( 3 )
 position = Vector2( 709, 172 )
 id = 1
 
+[node name="Toddler10" parent="Toddlers" instance=ExtResource( 2 )]
+position = Vector2( 694, 220 )
+id = 10
+
 [node name="Toddler6" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 314, 205 )
+position = Vector2( 660, 197 )
 id = 6
 
 [node name="Toddler7" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 269, 334 )
+position = Vector2( 633, 172 )
 id = 7
 
 [node name="Toddler8" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 486, 467 )
+position = Vector2( 730, 229 )
 id = 8
 
 [node name="Toddler9" parent="Toddlers" instance=ExtResource( 2 )]
@@ -36,19 +40,19 @@ position = Vector2( 788, 224 )
 id = 9
 
 [node name="Toddler2" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 459, 219 )
+position = Vector2( 803, 183 )
 id = 2
 
 [node name="Toddler3" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 488, 92 )
+position = Vector2( 751, 182 )
 id = 3
 
 [node name="Toddler4" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 795, 359 )
+position = Vector2( 762, 229 )
 id = 4
 
 [node name="Toddler5" parent="Toddlers" instance=ExtResource( 2 )]
-position = Vector2( 484, 343 )
+position = Vector2( 635, 231 )
 id = 5
 
 [node name="Teacher" parent="." instance=ExtResource( 6 )]
