@@ -38,7 +38,6 @@ func get_input():
 
 func handle_pick_up():
 	if is_holding:
-		print("letting go")
 		held_toddler.let_down()
 		remove_child(held_toddler)
 		emit_signal("let_down_toddler", held_toddler, position)
