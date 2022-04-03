@@ -44,7 +44,9 @@ func _process(delta):
 
 
 func set_animation():
-	if not waiting and (walking or walking_to_hazard or walking_to_target):
+	if dead:
+		animated_sprite.play("dead")
+	elif not waiting and (walking or walking_to_hazard or walking_to_target):
 		if abs(velocity.x) > abs(velocity.y):
 			if velocity.x > 0:
 				animated_sprite.play("walk_right")
@@ -81,6 +83,8 @@ func walk_towards_target(delta):
 			walking_to_hazard = false
 		else:
 			target = targets.pop_front()
+			wait_timer.start(0.5)
+			waiting = true
 	else:
 		move_and_collide(velocity)
 
@@ -114,3 +118,7 @@ func receive_path_to_hazard(received_targets : Array):
 
 func _on_WaitTimer_timeout():
 	waiting = false
+
+
+func kill():
+	dead = true

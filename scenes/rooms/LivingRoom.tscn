@@ -6,7 +6,7 @@
 extents = Vector2( 118, 115 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 32.5, 18 )
+extents = Vector2( 32.5, 17 )
 
 [node name="LivingRoom" instance=ExtResource( 1 )]
 
@@ -15,11 +15,11 @@ position = Vector2( -1, 20 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Bounds" index="1"]
-position = Vector2( -0.5, 153 )
+position = Vector2( -1, -112 )
 shape = SubResource( 2 )
 
 [node name="PlayRoom" type="Position2D" parent="Entryways" index="0"]
-position = Vector2( 97, -39 )
+position = Vector2( 55, -39 )
 
 [node name="KitchenRoom" type="Position2D" parent="Entryways" index="1"]
 position = Vector2( 99, 97 )

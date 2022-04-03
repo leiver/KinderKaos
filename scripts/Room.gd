@@ -13,3 +13,7 @@ func entryway_by_name(name : String) -> Position2D:
 		if entryway.name == name:
 			return entryway
 	return null
+
+
+func _on_Hazards_area_entered(area):
+	area.get_parent().kill()

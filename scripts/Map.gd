@@ -17,11 +17,12 @@ func room_by_name(name : String) -> Room:
 	return rooms.get_node(name)
 
 
-func room_from_toddler(toddler : Node) -> Node:
+func rooms_with_toddler(toddler : Node) -> Array:
+	var result = []
 	for child in rooms.get_children():
 		if child.toddler_within_bounds(toddler):
-			return child
-	return null
+			result.append(child)
+	return result
 
 
 func find_path_between_rooms(current : Node, destination : Node, path : Array, parsed_rooms : Array) -> Array:

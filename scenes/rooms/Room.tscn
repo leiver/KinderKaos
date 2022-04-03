@@ -6,7 +6,13 @@
 script = ExtResource( 1 )
 
 [node name="Bounds" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="Center" type="Position2D" parent="."]
 
 [node name="Entryways" type="Node2D" parent="."]
+
+[node name="Hazards" type="Area2D" parent="."]
+collision_layer = 4
+
+[connection signal="area_entered" from="Hazards" to="." method="_on_Hazards_area_entered"]
