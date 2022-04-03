@@ -24,16 +24,17 @@ func _on_RoamingToddlerTimer_timeout():
 func route_toddler_to_room(toddler):
 	if not toddler.walking_to_target:
 		var rooms_with_toddler = map.rooms_with_toddler(toddler)
-		var current_room = rooms_with_toddler[0]
-		var path = []
-		if rooms_with_toddler.size() > 1:
-			path.append(current_room.get_node("Entryways").get_node(rooms_with_toddler[1].name).position + current_room.position)
-		var rooms = map.list_of_rooms()
-		var room = rooms[randi() % rooms.size()]
-		while room.name == current_room.name:
-			room = rooms[randi() % rooms.size()]
-		
-		toddler.receive_path_to_target(map.find_path_between_rooms(current_room, room, path, []))
+		if rooms_with_toddler:
+			var current_room = rooms_with_toddler[0]
+			var path = []
+			if rooms_with_toddler.size() > 1:
+				path.append(current_room.get_node("Entryways").get_node(rooms_with_toddler[1].name).position + current_room.position)
+			var rooms = map.list_of_rooms()
+			var room = rooms[randi() % rooms.size()]
+			while room.name == current_room.name:
+				room = rooms[randi() % rooms.size()]
+			
+			toddler.receive_path_to_target(map.find_path_between_rooms(current_room, room, path, []))
 
 
 func connect_to_toddlers():
@@ -67,6 +68,7 @@ func _on_GameOverTimer_timeout():
 		toddler.set_process(false)
 		toddler.disable_timers()
 	teacher.set_process_input(false)
+	teacher.set_process(false)
 	
 	restart_button.text = "Congratulations! You saved %s kids! Press to restart!" % toddlers_alive
 	restart_button.visible = true

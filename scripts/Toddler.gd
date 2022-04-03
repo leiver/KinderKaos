@@ -167,7 +167,7 @@ func start_suicidal_thoughts_timer():
 
 
 func start_hunger_timer():
-	hunger_timer.start(rand_range(10, 60))
+	hunger_timer.start(rand_range(10, 180))
 
 
 func start_poop_timer():

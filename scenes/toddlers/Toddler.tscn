@@ -27,6 +27,10 @@ region = Rect2( 60, 0, 20, 20 )
 atlas = ExtResource( 3 )
 region = Rect2( 0, 100, 20, 20 )
 
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 20, 20 )
+
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 20, 20, 20 )
@@ -91,10 +95,6 @@ region = Rect2( 40, 60, 20, 20 )
 atlas = ExtResource( 3 )
 region = Rect2( 60, 60, 20, 20 )
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 20, 20 )
-
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
 "frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
@@ -105,6 +105,11 @@ animations = [ {
 "frames": [ SubResource( 7 ) ],
 "loop": true,
 "name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 25 ) ],
+"loop": true,
+"name": "picked_up",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
@@ -125,11 +130,6 @@ animations = [ {
 "frames": [ SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "walk_right",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 25 ) ],
-"loop": true,
-"name": "picked_up",
 "speed": 5.0
 } ]
 
