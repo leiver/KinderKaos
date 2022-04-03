@@ -10,7 +10,7 @@ var driving = false
 var drive_speed = 300
 
 func _ready():
-	driving_timer.start(10)
+	driving_timer.start(8)
 	animated_sprite.play("default")
 	original_position = Vector2(position.x, position.y)
 	drive_to = Vector2(position.x + 2000, position.y)
@@ -22,7 +22,7 @@ func _process(delta):
 		if position == drive_to:
 			position = original_position
 			driving = false
-			driving_timer.start(10)
+			driving_timer.start(8)
 			
 
 
