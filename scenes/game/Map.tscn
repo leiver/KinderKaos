@@ -1,15 +1,15 @@
 [gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://scenes/LivingRoom.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/PlayRoom.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/rooms/LivingRoom.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/rooms/PlayRoom.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/Map.gd" type="Script" id=3]
 [ext_resource path="res://scripts/Room.gd" type="Script" id=4]
-[ext_resource path="res://scenes/KitchenRoom.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/rooms/KitchenRoom.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/background/kindergarden.png" type="Texture" id=6]
-[ext_resource path="res://scenes/BathRoom.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/StorageRoom.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/BackYard.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scenes/FrontYard.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/rooms/BathRoom.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/rooms/StorageRoom.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/rooms/BackYard.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/rooms/FrontYard.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=17]
 extents = Vector2( 6, 152 )
@@ -92,6 +92,7 @@ position = Vector2( 487, 527 )
 position = Vector2( 722, 194 )
 
 [node name="Walls" type="KinematicBody2D" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
 position = Vector2( 198, 260 )
