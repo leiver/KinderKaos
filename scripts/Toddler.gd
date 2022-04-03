@@ -1,12 +1,12 @@
 extends KinematicBody2D
 
-signal request_path_to_other_room()
-signal request_path_to_hazard()
+signal kill_me
 
-onready var rotation_timer = $RotationTimer
-onready var walking_timer = $WalkingTimer
-onready var target_timer = $TargetTimer
-onready var wait_timer = $WaitTimer
+onready var rotation_timer = $Timers/RotationTimer
+onready var walking_timer = $Timers/WalkingTimer
+onready var wait_timer = $Timers/WaitTimer
+onready var suicidal_thoughts_timer = $Timers/SuicidalThoughtsTimer
+onready var timers = $Timers
 onready var animated_sprite = $AnimatedSprite
 
 export var id : int
@@ -19,7 +19,6 @@ var velocity = Vector2.ZERO
 
 var walking = false
 var walking_to_target = false
-var walking_to_hazard = false
 var dead = false
 var waiting = false
 
@@ -31,12 +30,13 @@ func _ready():
 	randomize()
 	_on_RotationTimer_timeout()
 	_on_WalkingTimer_timeout()
+	suicidal_thoughts_timer.start(rand_range(5, 10))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if not dead and not waiting:
-		if walking_to_target or walking_to_hazard:
+		if walking_to_target:
 			walk_towards_target(delta)
 		else:
 			idle(delta)
@@ -46,7 +46,7 @@ func _process(delta):
 func set_animation():
 	if dead:
 		animated_sprite.play("dead")
-	elif not waiting and (walking or walking_to_hazard or walking_to_target):
+	elif not waiting and (walking or walking_to_target):
 		if abs(velocity.x) > abs(velocity.y):
 			if velocity.x > 0:
 				animated_sprite.play("walk_right")
@@ -77,10 +77,7 @@ func walk_towards_target(delta):
 	if distance_to_target < distance_to_new_position:
 		position = target
 		if targets.size() == 0:
-			if walking_to_hazard:
-				dead = true
 			walking_to_target = false
-			walking_to_hazard = false
 		else:
 			target = targets.pop_front()
 			wait_timer.start(0.5)
@@ -104,16 +101,11 @@ func _on_WalkingTimer_timeout():
 		walking_timer.start(rand_range(1, 3))
 
 
-func receive_path_to_room(received_targets : Array):
-	targets = received_targets
-	target = targets.pop_front()
-	walking_to_target = true
-	
-
-func receive_path_to_hazard(received_targets : Array):
-	targets = received_targets
-	target = targets.pop_front()
-	walking_to_hazard = true
+func receive_path_to_target(received_targets : Array):
+	if received_targets.size() > 0:
+		targets = received_targets
+		target = targets.pop_front()
+		walking_to_target = true
 
 
 func _on_WaitTimer_timeout():
@@ -122,3 +114,10 @@ func _on_WaitTimer_timeout():
 
 func kill():
 	dead = true
+	for timer in timers.get_children():
+		timer.stop()
+
+
+func _on_SuicidalThoughtsTimer_timeout():
+	emit_signal("kill_me", self)
+	suicidal_thoughts_timer.start(rand_range(5, 10))

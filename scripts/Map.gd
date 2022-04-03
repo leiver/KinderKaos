@@ -20,9 +20,19 @@ func room_by_name(name : String) -> Room:
 func rooms_with_toddler(toddler : Node) -> Array:
 	var result = []
 	for child in rooms.get_children():
-		if child.toddler_within_bounds(toddler):
+		if child.toddler_within_bounds(toddler.get_node("Area2D")):
 			result.append(child)
 	return result
+
+
+func path_to_hazard_near_toddler(toddler : Node) -> Array:
+	for room in rooms_with_toddler(toddler):
+		var hazards_in_room = room.get_node("Hazards").get_children()
+		if hazards_in_room.size() > 0:
+			var random_hazard_in_room = hazards_in_room[randi() % hazards_in_room.size()].position
+			var random_point_in_hazard = random_hazard_in_room + Vector2(rand_range(-10, 10), rand_range(-10, 10))
+			return [room.position + room.get_node("Center").position, room.position + random_point_in_hazard]
+	return []
 
 
 func find_path_between_rooms(current : Node, destination : Node, path : Array, parsed_rooms : Array) -> Array:

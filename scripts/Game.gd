@@ -8,6 +8,7 @@ onready var roaming_toddler_timer = $RoamingToddlerTimer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_roaming_toddler_timer()
+	connect_to_toddlers()
 
 
 func _on_RoamingToddlerTimer_timeout():
@@ -16,7 +17,7 @@ func _on_RoamingToddlerTimer_timeout():
 
 
 func route_toddler_to_room(toddler):
-	var rooms_with_toddler = map.rooms_with_toddler(toddler.get_node("Area2D"))
+	var rooms_with_toddler = map.rooms_with_toddler(toddler)
 	var current_room = rooms_with_toddler[0]
 	var path = []
 	if rooms_with_toddler.size() > 1:
@@ -26,8 +27,17 @@ func route_toddler_to_room(toddler):
 	while room.name == current_room.name:
 		room = rooms[randi() % rooms.size()]
 	
-	toddler.receive_path_to_room(map.find_path_between_rooms(current_room, room, path, []))
+	toddler.receive_path_to_target(map.find_path_between_rooms(current_room, room, path, []))
+
+
+func connect_to_toddlers():
+	for toddler in toddlers.get_children():
+		toddler.connect("kill_me", self, "_on_Toddler_kill_me")
 
 
 func start_roaming_toddler_timer():
 	roaming_toddler_timer.start(rand_range(3, 8))
+
+
+func _on_Toddler_kill_me(source):
+	source.receive_path_to_target(map.path_to_hazard_near_toddler(source))

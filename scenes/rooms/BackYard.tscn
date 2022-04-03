@@ -1,12 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/rooms/Room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/doodads/mushroom_patch.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 268, 37 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 10, 17 )
+extents = Vector2( 24.5, 22 )
 
 [node name="BackYard" instance=ExtResource( 1 )]
 
@@ -21,5 +22,10 @@ position = Vector2( -61, 14 )
 position = Vector2( -264, 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards" index="0"]
-position = Vector2( 233, -17 )
+position = Vector2( 218.5, -12 )
 shape = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="." index="4"]
+position = Vector2( 216, -12 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )
