@@ -9,6 +9,7 @@ onready var target_timer = $TargetTimer
 onready var wait_timer = $WaitTimer
 onready var animated_sprite = $AnimatedSprite
 
+export var id : int
 
 var rotation_speed = PI
 var rotation_direction = 0
@@ -30,7 +31,6 @@ func _ready():
 	randomize()
 	_on_RotationTimer_timeout()
 	_on_WalkingTimer_timeout()
-	target_timer.start(rand_range(2, 5))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -79,7 +79,6 @@ func walk_towards_target(delta):
 				dead = true
 			walking_to_target = false
 			walking_to_hazard = false
-			target_timer.start(rand_range(2, 5))
 		else:
 			target = targets.pop_front()
 	else:
@@ -101,18 +100,7 @@ func _on_WalkingTimer_timeout():
 		walking_timer.start(rand_range(1, 3))
 
 
-func _on_TargetTimer_timeout():
-	emit_signal("request_path_to_other_room")
-	waiting = true
-	wait_timer.start(1)
-#	if randi() % 2:
-#		emit_signal("request_path_to_hazard")
-#	else:
-#		emit_signal("request_path_to_other_room")
-	
-
 func receive_path_to_room(received_targets : Array):
-	print(received_targets)
 	targets = received_targets
 	target = targets.pop_front()
 	walking_to_target = true

@@ -35,7 +35,6 @@ func find_path_between_rooms(current : Node, destination : Node, path : Array, p
 			continued_path.append(connecting_room.entryway_by_name(current.name).position + connecting_room.position)
 			continued_path.append(connecting_room.get_node("Center").position + connecting_room.position)
 			if connecting_room == destination:
-				print(parsed_rooms_copy)
 				return continued_path
 			var returned_path = find_path_between_rooms(connecting_room, destination, continued_path, parsed_rooms_copy)
 			if returned_path.size() > 0:
