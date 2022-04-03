@@ -56,6 +56,8 @@ func _process(delta):
 func set_animation():
 	if dead:
 		animated_sprite.play("dead")
+	elif being_held:
+		animated_sprite.play("picked_up")
 	elif not waiting and (walking or walking_to_target):
 		if abs(velocity.x) > abs(velocity.y):
 			if velocity.x > 0:
