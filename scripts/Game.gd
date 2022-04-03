@@ -41,3 +41,8 @@ func start_roaming_toddler_timer():
 
 func _on_Toddler_kill_me(source):
 	source.receive_path_to_target(map.path_to_hazard_near_toddler(source))
+
+
+func _on_Teacher_let_down_toddler(toddler, let_down_position):
+	toddlers.add_child(toddler)
+	toddler.position = let_down_position

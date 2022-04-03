@@ -66,4 +66,5 @@ stream = ExtResource( 5 )
 volume_db = -4.0
 autoplay = true
 
+[connection signal="let_down_toddler" from="Teacher" to="." method="_on_Teacher_let_down_toddler"]
 [connection signal="timeout" from="RoamingToddlerTimer" to="." method="_on_RoamingToddlerTimer_timeout"]
