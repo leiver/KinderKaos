@@ -86,7 +86,7 @@ script = ExtResource( 4 )
 position = Vector2( 489, 247 )
 
 [node name="KitchenRoom" parent="Rooms" instance=ExtResource( 5 )]
-position = Vector2( 729, 326 )
+position = Vector2( 740, 341 )
 
 [node name="BathRoom" parent="Rooms" instance=ExtResource( 7 )]
 position = Vector2( 281, 333 )

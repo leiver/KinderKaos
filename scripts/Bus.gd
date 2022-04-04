@@ -28,7 +28,7 @@ func _process(delta):
 
 func _on_Area2D_area_entered(area):
 	if "Toddler" in area.get_parent().name:
-		area.get_parent().kill()
+		area.get_parent().kill("battered")
 	if "Teacher" == area.get_parent().name and area.name == "Hurtbox":
 		area.get_parent().kill()
 

@@ -2,16 +2,8 @@ extends KinematicBody2D
 
 signal kill_me
 signal path_me_to_outlet
+signal i_am_dead
 
-onready var rotation_timer = $Timers/RotationTimer
-onready var walking_timer = $Timers/WalkingTimer
-onready var wait_timer = $Timers/WaitTimer
-onready var suicidal_thoughts_timer = $Timers/SuicidalThoughtsTimer
-onready var hunger_timer = $Timers/HungerTimer
-onready var starvation_timer = $Timers/StarvationTimer
-onready var poop_timer = $Timers/PoopTimer
-onready var dysentry_timer = $Timers/DysentryTimer
-onready var scissor_timer = $Timers/ScissorTimer
 onready var timers = $ToddlerTimers
 onready var animated_sprite = null
 onready var hunger_bubble = $SpeechBubbles/HungerBubble
@@ -31,6 +23,7 @@ var velocity = Vector2.ZERO
 var walking = false
 var walking_to_target = false
 var dead = false
+var death_reason = null
 var waiting = false
 var hungry_or_poopy_diaper = false
 var hungry = false
@@ -40,6 +33,7 @@ var holding_hazardous_object = false
 var holding_fork = false
 var holding_scissor = false
 var being_held = false
+var eating = false
 
 var targets : Array
 var target : Vector2
@@ -55,6 +49,14 @@ func _ready():
 	timers.start_default_hunger_timer()
 
 
+func disable():
+	set_process(false)
+	timers.stop_all_timers()
+	animated_sprite.play("default")
+	for speech_bubble in speech_bubbles.get_children():
+		speech_bubble.visible = false
+
+
 func _process(delta):
 	if not dead and not waiting and not being_held:
 		if walking_to_target:
@@ -66,7 +68,9 @@ func _process(delta):
 
 func set_animation():
 	if dead:
-		animated_sprite.play("dead")
+		animated_sprite.play(death_reason)
+	elif eating:
+		animated_sprite.play("eating")
 	elif being_held:
 		animated_sprite.play("picked_up")
 	elif not waiting and (walking or walking_to_target):
@@ -114,14 +118,17 @@ func receive_path_to_target(received_targets : Array):
 		walking_to_target = true
 
 
-func kill():
-	dead = true
-	hungry = false
-	hungry_or_poopy_diaper = false
-	holding_hazardous_object = false
-	disable_timers()
-	for speech_bubble in speech_bubbles.get_children():
-		speech_bubble.visible = false
+func kill(reason):
+	if not dead:
+		death_reason = reason
+		dead = true
+		hungry = false
+		hungry_or_poopy_diaper = false
+		holding_hazardous_object = false
+		disable_timers()
+		for speech_bubble in speech_bubbles.get_children():
+			speech_bubble.visible = false
+		emit_signal("i_am_dead", self)
 
 
 func picked_up():
@@ -143,11 +150,11 @@ func let_down():
 
 
 func feed():
-	hungry_or_poopy_diaper = false
-	hungry = false
-	timers.stop_timer("StarvationTimer")
+	eating = true
+	waiting = true
 	hunger_bubble.visible = false
-	timers.start_default_poop_timer()
+	timers.start_default_eating_timer()
+	timers.stop_timer("StarvationTimer")
 
 
 func clean_diaper():
@@ -175,14 +182,21 @@ func receive_hazardous_object(hazardous_object):
 
 func _on_Area2D_area_entered(area):
 	if area.name == "Outlet" and holding_fork:
-		kill()
+		kill("shocked")
 
 
 func _on_ToddlerTimers_timeout(timer):
-	if timer in ["DysentryTimer", "StarvationTimer", "ScissorTimer"]:
-		kill()
+	if timer == "StarvationTimer":
+		kill("starved")
+	
+	if timer == "DysentryTimer":
+		kill("poisoned")
+	
+	if timer == "ScissorTimer":
+		kill("battered")
 	
 	elif timer == "PoopTimer":
+		print("poop timer popped")
 		if holding_hazardous_object or going_to_hazardouds_object:
 			timers.start_timer("PoopTimer", 10)
 		else:
@@ -213,6 +227,13 @@ func _on_ToddlerTimers_timeout(timer):
 	
 	elif timer == "RotationTimer":
 		handle_rotation_timer_timeout()
+	
+	elif timer == "EatingTimer":
+		eating = false
+		waiting = false
+		hungry_or_poopy_diaper = false
+		hungry = false
+		timers.start_default_poop_timer()
 
 
 func handle_rotation_timer_timeout():

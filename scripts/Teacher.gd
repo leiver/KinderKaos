@@ -53,7 +53,7 @@ func handle_pick_up():
 					return
 		held_toddler.let_down()
 		remove_child(held_toddler)
-		emit_signal("let_down_toddler", held_toddler, position)
+		emit_signal("let_down_toddler", held_toddler, position + Vector2(15, 25))
 		is_holding_toddler = false
 	elif is_holding_cookie:
 		for area in pickup_box.get_overlapping_areas():
@@ -77,7 +77,7 @@ func handle_pick_up():
 				toddler.get_parent().remove_child(toddler)
 				add_child(toddler)
 				held_toddler = toddler
-				toddler.position = Vector2(0, 25)
+				toddler.position = Vector2(15, 25)
 				toddler.picked_up()
 				is_holding_toddler = true
 			elif "CookieJar" == area_to_pick.name:

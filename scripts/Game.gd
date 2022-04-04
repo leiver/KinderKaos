@@ -8,11 +8,15 @@ onready var game_over_timer = $GameOverTimer
 onready var teacher = $Teacher
 onready var restart_button = $RestartButton
 onready var bus = $Bus
+onready var music = $AudioStreamPlayer
 
 var game_over = false
+var dead_toddlers = 0
+var amount_of_toddlers = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	amount_of_toddlers = toddlers.get_child_count()
 	start_roaming_toddler_timer()
 	connect_to_toddlers()
 
@@ -45,6 +49,7 @@ func connect_to_toddlers():
 	for toddler in toddlers.get_children():
 		toddler.connect("kill_me", self, "_on_Toddler_kill_me")
 		toddler.connect("path_me_to_outlet", self, "_on_Toddler_path_me_to_outlet")
+		toddler.connect("i_am_dead", self, "_on_Toddler_i_am_dead")
 
 
 func start_roaming_toddler_timer():
@@ -52,22 +57,31 @@ func start_roaming_toddler_timer():
 
 
 func game_over():
-	var toddlers_alive = 0
 	for toddler in toddlers.get_children():
-		if not toddler.dead:
-			toddlers_alive += 1
-		toddler.set_process(false)
-		toddler.disable_timers()
-	teacher.set_process_input(false)
+		toddler.disable()
 	teacher.set_process(false)
 	bus.set_process(false)
+	music.stop()
 	
-	restart_button.text = "Congratulations! You saved %s kids! Press to restart!" % toddlers_alive
+	var alive_toddlers = amount_of_toddlers - dead_toddlers
+	if teacher.dead:
+		restart_button.text = "Whoopsie! You didn't look both ways! Press to restart!"
+	elif alive_toddlers == 0:
+		restart_button.text = "Oh no! All the kids died! Press to restart!"
+	else:
+		restart_button.text = "Congratulations! You saved %s kids! Press to restart!" % alive_toddlers
 	restart_button.visible = true
 
 
 func _on_Toddler_kill_me(source):
 	source.receive_path_to_target(map.path_to_hazard_near_toddler(source))
+
+
+func _on_Toddler_i_am_dead(source):
+	print("toddler %s died" % source.id)
+	dead_toddlers += 1
+	if dead_toddlers >= amount_of_toddlers:
+		game_over()
 
 
 func _on_Toddler_path_me_to_outlet(source):

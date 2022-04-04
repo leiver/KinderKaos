@@ -17,7 +17,8 @@ func entryway_by_name(name : String) -> Position2D:
 
 
 func _on_Hazards_area_entered(area):
-	area.get_parent().kill()
+	if not area.get_parent().being_held:
+		area.get_parent().kill("poisoned")
 
 
 func _on_ItemSource_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
