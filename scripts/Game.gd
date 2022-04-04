@@ -8,7 +8,8 @@ onready var game_over_timer = $GameOverTimer
 onready var teacher = $Teacher
 onready var restart_button = $RestartButton
 onready var bus = $Bus
-onready var music = $AudioStreamPlayer
+onready var music = $TitleMusic
+onready var game_over_sound = $GameOverSound
 
 var game_over = false
 var dead_toddlers = 0
@@ -60,8 +61,9 @@ func game_over():
 	for toddler in toddlers.get_children():
 		toddler.disable()
 	teacher.set_process(false)
-	bus.set_process(false)
+	bus.disable()
 	music.stop()
+	game_over_sound.play()
 	
 	var alive_toddlers = amount_of_toddlers - dead_toddlers
 	if teacher.dead:

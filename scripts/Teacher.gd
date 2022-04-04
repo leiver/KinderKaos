@@ -50,7 +50,6 @@ func handle_pick_up():
 			for area in pickup_box.get_overlapping_areas():
 				if "ChangingTable" == area.name:
 					held_toddler.clean_diaper()
-					return
 		held_toddler.let_down()
 		remove_child(held_toddler)
 		emit_signal("let_down_toddler", held_toddler, position + Vector2(15, 25))
@@ -74,12 +73,15 @@ func handle_pick_up():
 		if area_to_pick != null:
 			if "Toddler" in area_to_pick.get_parent().name:
 				var toddler = area_to_pick.get_parent()
-				toddler.get_parent().remove_child(toddler)
-				add_child(toddler)
-				held_toddler = toddler
-				toddler.position = Vector2(15, 25)
-				toddler.picked_up()
-				is_holding_toddler = true
+				if toddler.holding_hazardous_object:
+					toddler.remove_hazardous_object()
+				else:
+					toddler.get_parent().remove_child(toddler)
+					add_child(toddler)
+					held_toddler = toddler
+					toddler.position = Vector2(15, 25)
+					toddler.picked_up()
+					is_holding_toddler = true
 			elif "CookieJar" == area_to_pick.name:
 				is_holding_cookie = true
 				cookieSprite.visible = true

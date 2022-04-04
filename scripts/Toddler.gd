@@ -145,20 +145,12 @@ func kill(reason):
 
 func picked_up():
 	going_to_hazardouds_object = false
-	holding_hazardous_object = false
-	fork_bubble.visible = false
-	holding_fork = false
-	scissor_bubble.visible = false
-	holding_scissor = false
 	being_held = true
-	timers.stop_timer("SuicidalThoughtsTimer")
-	timers.stop_timer("ScissorTimer")
 	walking_to_target = false
 
 
 func let_down():
 	being_held = false
-	timers.start_timer("SuicidalThoughtsTimer", rand_range(5, 20))
 
 
 func feed():
@@ -180,7 +172,7 @@ func clean_diaper():
 
 func receive_hazardous_object(hazardous_object):
 	if not hungry_or_poopy_diaper and going_to_hazardouds_object:
-		going_to_hazardouds_object = true
+		going_to_hazardouds_object = false
 		holding_hazardous_object = true
 		walking_to_target = false
 		if hazardous_object == "Fork":
@@ -191,6 +183,18 @@ func receive_hazardous_object(hazardous_object):
 			scissor_bubble.visible = true
 			holding_scissor = true
 			timers.start_timer("ScissorTimer", rand_range(10, 20))
+
+
+func remove_hazardous_object():
+	if holding_hazardous_object:
+		holding_hazardous_object = false
+		holding_scissor = false
+		holding_fork = false
+		fork_bubble.visible = false
+		scissor_bubble.visible = false
+		walking_to_target = false
+		timers.stop_timer("ScissorTimer")
+		
 
 
 func _on_Area2D_area_entered(area):
@@ -230,7 +234,7 @@ func _on_ToddlerTimers_timeout(timer):
 			timers.start_timer("StarvationTimer", 30)
 	
 	elif timer == "SuicidalThoughtsTimer":
-		if not walking_to_target and not holding_scissor:
+		if not walking_to_target and not holding_scissor and not being_held:
 			emit_signal("kill_me", self)
 		timers.start_default_suicidal_thoughts_timer()
 	
