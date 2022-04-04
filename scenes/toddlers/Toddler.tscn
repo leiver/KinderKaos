@@ -1,4 +1,4 @@
-[gd_scene load_steps=225 format=2]
+[gd_scene load_steps=241 format=2]
 
 [ext_resource path="res://scripts/Toddler.gd" type="Script" id=1]
 [ext_resource path="res://assets/bubbles/cookie_bubble.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/spritesheets/toddler_03.png" type="Texture" id=10]
 [ext_resource path="res://assets/spritesheets/toddler_04.png" type="Texture" id=11]
 [ext_resource path="res://assets/spritesheets/toddler_05.png" type="Texture" id=12]
+[ext_resource path="res://assets/spritesheets/toddler_01.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12, 18 )
@@ -110,6 +111,42 @@ region = Rect2( 40, 60, 20, 20 )
 atlas = SubResource( 26 )
 region = Rect2( 60, 60, 20, 20 )
 
+[sub_resource type="AtlasTexture" id=213]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 120, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=214]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 160, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=215]
+atlas = ExtResource( 13 )
+region = Rect2( 20, 160, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=216]
+atlas = ExtResource( 13 )
+region = Rect2( 40, 160, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=217]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 180, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=218]
+atlas = ExtResource( 13 )
+region = Rect2( 20, 180, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=219]
+atlas = ExtResource( 13 )
+region = Rect2( 40, 180, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=220]
+atlas = ExtResource( 13 )
+region = Rect2( 60, 180, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=221]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 140, 20, 20 )
+
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
 "frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
@@ -119,7 +156,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 7 ) ],
 "loop": true,
-"name": "dead",
+"name": "battered",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 25 ) ],
@@ -146,6 +183,26 @@ animations = [ {
 "loop": true,
 "name": "walk_right",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 213 ) ],
+"loop": true,
+"name": "poisoned",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 214 ), SubResource( 215 ), SubResource( 216 ) ],
+"loop": true,
+"name": "shocked",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 217 ), SubResource( 218 ), SubResource( 219 ), SubResource( 220 ) ],
+"loop": true,
+"name": "eating",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 221 ) ],
+"loop": true,
+"name": "starved",
+"speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=27]
@@ -167,6 +224,10 @@ region = Rect2( 60, 0, 20, 20 )
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 9 )
 region = Rect2( 0, 100, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=222]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 20, 20 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 9 )
@@ -280,6 +341,11 @@ animations = [ {
 "name": "battered",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 222 ) ],
+"loop": true,
+"name": "picked_up",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ) ],
 "loop": true,
 "name": "walk_down",
@@ -340,6 +406,10 @@ region = Rect2( 60, 0, 20, 20 )
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 10 )
 region = Rect2( 0, 100, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=223]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 20, 20 )
 
 [sub_resource type="AtlasTexture" id=63]
 atlas = ExtResource( 10 )
@@ -453,6 +523,11 @@ animations = [ {
 "name": "battered",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 223 ) ],
+"loop": true,
+"name": "picked_up",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ) ],
 "loop": true,
 "name": "walk_down",
@@ -513,6 +588,10 @@ region = Rect2( 60, 0, 20, 20 )
 [sub_resource type="AtlasTexture" id=93]
 atlas = ExtResource( 11 )
 region = Rect2( 0, 100, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=224]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 20, 20 )
 
 [sub_resource type="AtlasTexture" id=94]
 atlas = ExtResource( 11 )
@@ -626,6 +705,11 @@ animations = [ {
 "name": "battered",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 224 ) ],
+"loop": true,
+"name": "picked_up",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 94 ), SubResource( 95 ), SubResource( 96 ), SubResource( 97 ) ],
 "loop": true,
 "name": "walk_down",
@@ -686,6 +770,10 @@ region = Rect2( 60, 0, 20, 20 )
 [sub_resource type="AtlasTexture" id=124]
 atlas = ExtResource( 12 )
 region = Rect2( 0, 100, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=225]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 20, 20 )
 
 [sub_resource type="AtlasTexture" id=125]
 atlas = ExtResource( 12 )
@@ -799,6 +887,11 @@ animations = [ {
 "name": "battered",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 225 ) ],
+"loop": true,
+"name": "picked_up",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 125 ), SubResource( 126 ), SubResource( 127 ), SubResource( 128 ) ],
 "loop": true,
 "name": "walk_down",
@@ -859,6 +952,10 @@ region = Rect2( 60, 0, 20, 20 )
 [sub_resource type="AtlasTexture" id=155]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 100, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=226]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 20, 20 )
 
 [sub_resource type="AtlasTexture" id=156]
 atlas = ExtResource( 3 )
@@ -972,6 +1069,11 @@ animations = [ {
 "name": "battered",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 226 ) ],
+"loop": true,
+"name": "picked_up",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ) ],
 "loop": true,
 "name": "walk_down",
@@ -1032,6 +1134,10 @@ region = Rect2( 60, 0, 20, 20 )
 [sub_resource type="AtlasTexture" id=186]
 atlas = ExtResource( 8 )
 region = Rect2( 0, 100, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=227]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 20, 20 )
 
 [sub_resource type="AtlasTexture" id=187]
 atlas = ExtResource( 8 )
@@ -1143,6 +1249,11 @@ animations = [ {
 "frames": [ SubResource( 186 ) ],
 "loop": true,
 "name": "battered",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 227 ) ],
+"loop": true,
+"name": "picked_up",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 187 ), SubResource( 188 ), SubResource( 189 ), SubResource( 190 ) ],
@@ -1268,7 +1379,6 @@ position = Vector2( -1, -11 )
 visible = false
 scale = Vector2( 2, 2 )
 frames = SubResource( 24 )
-animation = "picked_up"
 
 [node name="Toddler02" type="AnimatedSprite" parent="ToddlerVariations"]
 visible = false
