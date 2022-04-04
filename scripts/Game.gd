@@ -6,10 +6,10 @@ onready var toddlers = $Toddlers
 onready var roaming_toddler_timer = $RoamingToddlerTimer
 onready var game_over_timer = $GameOverTimer
 onready var teacher = $Teacher
-onready var restart_button = $RestartButton
 onready var bus = $Bus
 onready var music = $TitleMusic
 onready var game_over_sound = $GameOverSound
+onready var game_over_modal = $GameOverModal
 
 var game_over = false
 var dead_toddlers = 0
@@ -64,15 +64,11 @@ func game_over():
 	bus.disable()
 	music.stop()
 	game_over_sound.play()
-	
-	var alive_toddlers = amount_of_toddlers - dead_toddlers
+
 	if teacher.dead:
-		restart_button.text = "Whoopsie! You didn't look both ways! Press to restart!"
-	elif alive_toddlers == 0:
-		restart_button.text = "Oh no! All the kids died! Press to restart!"
+		game_over_modal.display_whoopsie_message()
 	else:
-		restart_button.text = "Congratulations! You saved %s kids! Press to restart!" % alive_toddlers
-	restart_button.visible = true
+		game_over_modal.display_congratulations_message(String(dead_toddlers))
 
 
 func _on_Toddler_kill_me(source):
@@ -97,10 +93,6 @@ func _on_Teacher_let_down_toddler(toddler, let_down_position):
 
 func _on_GameOverTimer_timeout():
 	game_over()
-
-
-func _on_RestartButton_pressed():
-	get_tree().reload_current_scene()
 
 
 func _on_Teacher_i_am_dead():
