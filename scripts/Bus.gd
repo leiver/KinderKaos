@@ -8,7 +8,7 @@ onready var sound_effect = $SoundEffect
 var original_position = Vector2(0, 0)
 var drive_to = Vector2(0,0)
 var driving = false
-var drive_speed = 300
+var drive_speed = 200
 
 func _ready():
 	driving_timer.start(8)
@@ -37,4 +37,4 @@ func _on_Area2D_area_entered(area):
 
 func _on_DrivingTimer_timeout():
 	driving = true
-	sound_effect.play(0)
+	sound_effect.play(1)
