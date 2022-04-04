@@ -86,6 +86,7 @@ margin_bottom = 336.0
 [node name="Bus" parent="." instance=ExtResource( 7 )]
 position = Vector2( -163, 510 )
 
+[connection signal="i_am_dead" from="Teacher" to="." method="_on_Teacher_i_am_dead"]
 [connection signal="let_down_toddler" from="Teacher" to="." method="_on_Teacher_let_down_toddler"]
 [connection signal="timeout" from="RoamingToddlerTimer" to="." method="_on_RoamingToddlerTimer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]

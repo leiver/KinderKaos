@@ -51,20 +51,7 @@ func start_roaming_toddler_timer():
 	roaming_toddler_timer.start(rand_range(3, 5))
 
 
-func _on_Toddler_kill_me(source):
-	source.receive_path_to_target(map.path_to_hazard_near_toddler(source))
-
-
-func _on_Toddler_path_me_to_outlet(source):
-	source.receive_path_to_target(map.path_to_outlet(source))
-
-
-func _on_Teacher_let_down_toddler(toddler, let_down_position):
-	toddlers.add_child(toddler)
-	toddler.position = let_down_position
-
-
-func _on_GameOverTimer_timeout():
+func game_over():
 	var toddlers_alive = 0
 	for toddler in toddlers.get_children():
 		if not toddler.dead:
@@ -79,5 +66,26 @@ func _on_GameOverTimer_timeout():
 	restart_button.visible = true
 
 
+func _on_Toddler_kill_me(source):
+	source.receive_path_to_target(map.path_to_hazard_near_toddler(source))
+
+
+func _on_Toddler_path_me_to_outlet(source):
+	source.receive_path_to_target(map.path_to_outlet(source))
+
+
+func _on_Teacher_let_down_toddler(toddler, let_down_position):
+	toddlers.add_child(toddler)
+	toddler.position = let_down_position
+
+
+func _on_GameOverTimer_timeout():
+	game_over()
+
+
 func _on_RestartButton_pressed():
 	get_tree().reload_current_scene()
+
+
+func _on_Teacher_i_am_dead():
+	game_over()

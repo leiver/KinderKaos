@@ -6,16 +6,19 @@ var velocity = Vector2()
 var is_holding_toddler = false
 var is_holding_cookie = false
 var held_toddler = null
+var dead = false
 
 onready var pickup_box = $PickupBox
 onready var animatedSprite = $AnimatedSprite
 onready var cookieSprite = $Cookie
 
+signal i_am_dead
 signal let_down_toddler
 
 func _process(delta):
-		get_input()
-		velocity = move_and_collide(velocity*delta)
+		if not dead:
+			get_input()
+			velocity = move_and_collide(velocity*delta)
 
 
 func get_input():
@@ -72,6 +75,11 @@ func handle_pick_up():
 				cookieSprite.visible = true
 				break
 
+
+func kill():
+	dead = true
+	animatedSprite.play("dead")
+	emit_signal("i_am_dead")
 
 func set_animation():
 	if velocity.x == 0 and velocity.y == 0:
