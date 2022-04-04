@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/battered_sound.mp3-6e71b10efc3ad0f83cc899cf78ce5fc9.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/battered_sound.mp3"
+dest_files=[ "res://.import/battered_sound.mp3-6e71b10efc3ad0f83cc899cf78ce5fc9.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

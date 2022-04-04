@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/eating_sound.mp3-be950acd78b6766cec1d61f79a6a34c5.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/eating_sound.mp3"
+dest_files=[ "res://.import/eating_sound.mp3-be950acd78b6766cec1d61f79a6a34c5.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

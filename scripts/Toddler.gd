@@ -11,6 +11,7 @@ onready var poop_bubble = $SpeechBubbles/PoopBubble
 onready var fork_bubble = $SpeechBubbles/ForkBubble
 onready var scissor_bubble = $SpeechBubbles/ScissorBubble
 onready var speech_bubbles = $SpeechBubbles
+onready var shocked_sound = $AudioStreamPlayer
 
 export var id : int
 
@@ -121,6 +122,7 @@ func receive_path_to_target(received_targets : Array):
 
 func kill(reason):
 	if not dead:
+		shocked_sound.play()
 		death_reason = reason
 		dead = true
 		hungry = false
