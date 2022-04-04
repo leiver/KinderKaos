@@ -25,7 +25,7 @@ func start_default_hunger_timer():
 
 
 func start_default_poop_timer():
-	get_node("PoopTimer").start(rand_range(30, 60))
+	get_node("PoopTimer").start(rand_range(10, 40))
 
 
 func start_default_dysentry_timer():

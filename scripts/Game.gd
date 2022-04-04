@@ -75,7 +75,7 @@ func game_over():
 
 
 func _on_Toddler_kill_me(source):
-	source.receive_path_to_target(map.path_to_hazard_near_toddler(source))
+	source.receive_path_to_hazard(map.path_to_hazard_near_toddler(source))
 
 
 func _on_Toddler_i_am_dead(source):

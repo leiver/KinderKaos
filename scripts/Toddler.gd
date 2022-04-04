@@ -126,6 +126,13 @@ func receive_path_to_target(received_targets : Array):
 		walking_to_target = true
 
 
+func receive_path_to_hazard(received_targets : Array):
+	if received_targets.size() > 0 and not going_to_hazardouds_object and not holding_hazardous_object:
+		targets = received_targets
+		target = targets.pop_front()
+		walking_to_target = true
+
+
 func kill(reason):
 	if not dead:
 		if reason == "shocked":
@@ -234,7 +241,7 @@ func _on_ToddlerTimers_timeout(timer):
 			timers.start_timer("StarvationTimer", 30)
 	
 	elif timer == "SuicidalThoughtsTimer":
-		if not walking_to_target and not holding_scissor and not being_held:
+		if not going_to_hazardouds_object and not holding_hazardous_object and not being_held:
 			emit_signal("kill_me", self)
 		timers.start_default_suicidal_thoughts_timer()
 	
