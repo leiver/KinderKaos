@@ -22,8 +22,6 @@ func _process(delta):
 		starting = true
 		yay_sound.play()
 		music.stop()
-	elif Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
 	
 	if teach_and_toddler_moving:
 		teacher_chasing_toddler.position.x -= teach_and_toddler_speed * delta
@@ -39,3 +37,9 @@ func _on_YaaySound_finished():
 
 func _on_ChaseTimer_timeout():
 	teach_and_toddler_moving = true
+
+
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_ESCAPE:
+			get_tree().quit()
