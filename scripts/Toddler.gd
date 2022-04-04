@@ -11,11 +11,13 @@ onready var hunger_timer = $Timers/HungerTimer
 onready var starvation_timer = $Timers/StarvationTimer
 onready var poop_timer = $Timers/PoopTimer
 onready var dysentry_timer = $Timers/DysentryTimer
+onready var scissor_timer = $Timers/ScissorTimer
 onready var timers = $Timers
 onready var animated_sprite = $AnimatedSprite
 onready var hunger_bubble = $SpeechBubbles/HungerBubble
 onready var poop_bubble = $SpeechBubbles/PoopBubble
 onready var fork_bubble = $SpeechBubbles/ForkBubble
+onready var scissor_bubble = $SpeechBubbles/ScissorBubble
 onready var speech_bubbles = $SpeechBubbles
 
 export var id : int
@@ -35,6 +37,7 @@ var hungry = false
 var poopy_diaper = false
 var holding_hazardous_object = false
 var holding_fork = false
+var holding_scissor = false
 var being_held = false
 
 var targets : Array
@@ -79,9 +82,9 @@ func set_animation():
 
 
 func idle(delta):
-	direction = fmod(direction + (rotation_speed * delta * rotation_direction) + (PI*2), PI*2)
-	if walking:
-		velocity = Vector2.UP.rotated(direction) * speed
+	direction = fmod(direction + ((rotation_speed + (int(holding_scissor) * (PI/2))) * delta * rotation_direction) + (PI*2), PI*2)
+	if walking or holding_scissor:
+		velocity = Vector2.UP.rotated(direction) * (speed + (int(holding_scissor) * 50))
 		move_and_collide(velocity * delta)
 
 
@@ -102,7 +105,7 @@ func walk_towards_target(delta):
 
 
 func receive_path_to_target(received_targets : Array):
-	if received_targets.size() > 0 and not walking_to_target:
+	if received_targets.size() > 0 and not walking_to_target and not holding_scissor:
 		targets = received_targets
 		target = targets.pop_front()
 		walking_to_target = true
@@ -126,8 +129,12 @@ func kill():
 func picked_up():
 	holding_hazardous_object = false
 	fork_bubble.visible = false
+	holding_fork = false
+	scissor_bubble.visible = false
+	holding_scissor = false
 	being_held = true
 	suicidal_thoughts_timer.stop()
+	scissor_timer.stop()
 	walking_to_target = false
 
 
@@ -155,11 +162,15 @@ func clean_diaper():
 func receive_hazardous_object(hazardous_object):
 	if not hungry_or_poopy_diaper:
 		holding_hazardous_object = true
+		walking_to_target = false
 		if hazardous_object == "Fork":
-			walking_to_target = false
 			emit_signal("path_me_to_outlet", self)
 			fork_bubble.visible = true
 			holding_fork = true
+		elif hazardous_object == "Scissors":
+			scissor_bubble.visible = true
+			holding_scissor = true
+			scissor_timer.start(rand_range(10, 20))
 
 
 func start_suicidal_thoughts_timer():
@@ -181,7 +192,7 @@ func start_dysentry_timer():
 func _on_RotationTimer_timeout():
 	rotation_direction = rand_range(-1, 1)
 	rotation_speed = PI + rand_range(0, PI/2)
-	rotation_timer.start(rand_range(0.5, 2))
+	rotation_timer.start(rand_range(0.5, 2 - (1.5 * int(holding_scissor))))
 
 
 func _on_WalkingTimer_timeout():
@@ -228,6 +239,10 @@ func _on_PoopTimer_timeout():
 
 
 func _on_DysentryTimer_timeout():
+	kill()
+
+
+func _on_ScissorTimer_timeout():
 	kill()
 
 

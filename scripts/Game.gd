@@ -7,6 +7,7 @@ onready var roaming_toddler_timer = $RoamingToddlerTimer
 onready var game_over_timer = $GameOverTimer
 onready var teacher = $Teacher
 onready var restart_button = $RestartButton
+onready var bus = $Bus
 
 var game_over = false
 
@@ -72,6 +73,7 @@ func _on_GameOverTimer_timeout():
 		toddler.disable_timers()
 	teacher.set_process_input(false)
 	teacher.set_process(false)
+	bus.set_process(false)
 	
 	restart_button.text = "Congratulations! You saved %s kids! Press to restart!" % toddlers_alive
 	restart_button.visible = true

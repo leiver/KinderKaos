@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/rooms/Room.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/doodads/playroom_furniture.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 106.5, 49 )
@@ -13,3 +14,8 @@ shape = SubResource( 1 )
 
 [node name="LivingRoom" type="Position2D" parent="Entryways" index="0"]
 position = Vector2( -89, 12 )
+
+[node name="Sprite" type="Sprite" parent="." index="5"]
+position = Vector2( 2, -13 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 2 )

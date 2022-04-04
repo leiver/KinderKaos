@@ -186,6 +186,9 @@ one_shot = true
 [node name="DysentryTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="ScissorTimer" type="Timer" parent="Timers"]
+one_shot = true
+
 [node name="SpeechBubbles" type="Node2D" parent="."]
 
 [node name="HungerBubble" type="Sprite" parent="SpeechBubbles"]
@@ -221,3 +224,4 @@ texture = ExtResource( 4 )
 [connection signal="timeout" from="Timers/StarvationTimer" to="." method="_on_StarvationTimer_timeout"]
 [connection signal="timeout" from="Timers/PoopTimer" to="." method="_on_PoopTimer_timeout"]
 [connection signal="timeout" from="Timers/DysentryTimer" to="." method="_on_DysentryTimer_timeout"]
+[connection signal="timeout" from="Timers/ScissorTimer" to="." method="_on_ScissorTimer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/rooms/LivingRoom.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/rooms/PlayRoom.tscn" type="PackedScene" id=2]
@@ -67,6 +67,9 @@ extents = Vector2( 58, 10 )
 
 [sub_resource type="RectangleShape2D" id=20]
 extents = Vector2( 85, 13 )
+
+[sub_resource type="RectangleShape2D" id=21]
+extents = Vector2( 31, 11 )
 
 [node name="Map" type="Node2D"]
 script = ExtResource( 3 )
@@ -194,3 +197,7 @@ shape = SubResource( 19 )
 [node name="CollisionShape2D23" type="CollisionShape2D" parent="Walls"]
 position = Vector2( 745, 289 )
 shape = SubResource( 20 )
+
+[node name="CollisionShape2D24" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 575, 155 )
+shape = SubResource( 21 )
