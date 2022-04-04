@@ -137,7 +137,7 @@ animations = [ {
 extents = Vector2( 12, 18 )
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 7 )
+extents = Vector2( 12, 10 )
 
 [node name="Toddler" type="KinematicBody2D"]
 collision_mask = 2
@@ -157,6 +157,7 @@ collision_mask = 14
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -3 )
 shape = SubResource( 1 )
 
 [node name="Timers" type="Node2D" parent="."]
@@ -194,24 +195,28 @@ one_shot = true
 visible = false
 position = Vector2( 29, -43 )
 scale = Vector2( 2, 2 )
+z_index = 1
 texture = ExtResource( 2 )
 
 [node name="ForkBubble" type="Sprite" parent="SpeechBubbles"]
 visible = false
 position = Vector2( 29, -43 )
 scale = Vector2( 2, 2 )
+z_index = 1
 texture = ExtResource( 5 )
 
 [node name="PoopBubble" type="Sprite" parent="SpeechBubbles"]
 visible = false
 position = Vector2( 29, -43 )
 scale = Vector2( 2, 2 )
+z_index = 1
 texture = ExtResource( 6 )
 
 [node name="ScissorBubble" type="Sprite" parent="SpeechBubbles"]
 visible = false
 position = Vector2( 29, -43 )
 scale = Vector2( 2, 2 )
+z_index = 1
 texture = ExtResource( 4 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
