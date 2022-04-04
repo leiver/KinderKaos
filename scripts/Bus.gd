@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 onready var animated_sprite = $AnimatedSprite
 onready var driving_timer = $DrivingTimer
+onready var sound_effect = $SoundEffect
 
 var original_position = Vector2(0, 0)
 var drive_to = Vector2(0,0)
@@ -13,7 +14,7 @@ func _ready():
 	driving_timer.start(8)
 	animated_sprite.play("default")
 	original_position = Vector2(position.x, position.y)
-	drive_to = Vector2(position.x + 2000, position.y)
+	drive_to = Vector2(position.x + 1500, position.y)
 
 
 func _process(delta):
@@ -23,6 +24,7 @@ func _process(delta):
 			position = original_position
 			driving = false
 			driving_timer.start(8)
+			sound_effect.stop()
 			
 
 
@@ -35,3 +37,4 @@ func _on_Area2D_area_entered(area):
 
 func _on_DrivingTimer_timeout():
 	driving = true
+	sound_effect.play(0)
