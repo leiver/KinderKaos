@@ -13,7 +13,7 @@ onready var poop_timer = $Timers/PoopTimer
 onready var dysentry_timer = $Timers/DysentryTimer
 onready var scissor_timer = $Timers/ScissorTimer
 onready var timers = $ToddlerTimers
-onready var animated_sprite = $AnimatedSprite
+onready var animated_sprite = null
 onready var hunger_bubble = $SpeechBubbles/HungerBubble
 onready var poop_bubble = $SpeechBubbles/PoopBubble
 onready var fork_bubble = $SpeechBubbles/ForkBubble
@@ -45,6 +45,8 @@ var targets : Array
 var target : Vector2
 
 func _ready():
+	animated_sprite = get_node("ToddlerVariations").get_child(randi()%7)
+	animated_sprite.visible = true
 	animated_sprite.play("default")
 	randomize()
 	handle_rotation_timer_timeout()
