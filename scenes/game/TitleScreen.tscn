@@ -78,7 +78,6 @@ position = Vector2( 58, 0 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
 animation = "running_left"
-frame = 3
 playing = true
 
 [node name="Toddler" type="AnimatedSprite" parent="TeacherChasingToddler"]
@@ -86,7 +85,7 @@ position = Vector2( -57, 10 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 10 )
 animation = "running_left"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Sprite" type="Sprite" parent="TeacherChasingToddler"]

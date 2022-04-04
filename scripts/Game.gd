@@ -55,7 +55,7 @@ func connect_to_toddlers():
 
 
 func start_roaming_toddler_timer():
-	roaming_toddler_timer.start(rand_range(3, 5))
+	roaming_toddler_timer.start(3)
 
 
 func game_over():

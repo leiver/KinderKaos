@@ -21,7 +21,7 @@ func start_default_suicidal_thoughts_timer():
 
 
 func start_default_hunger_timer():
-	get_node("HungerTimer").start(rand_range(10, 180))
+	get_node("HungerTimer").start(rand_range(10, 140))
 
 
 func start_default_poop_timer():

@@ -243,7 +243,7 @@ func _on_ToddlerTimers_timeout(timer):
 	elif timer == "SuicidalThoughtsTimer":
 		if not going_to_hazardouds_object and not holding_hazardous_object and not being_held:
 			emit_signal("kill_me", self)
-		timers.start_default_suicidal_thoughts_timer()
+		timers.start_timer("SuicidalThoughtsTimer", 10)
 	
 	elif timer == "WaitTimer":
 		waiting = false
