@@ -30,15 +30,19 @@ func path_to_hazard_near_toddler(toddler : Node) -> Array:
 		var hazards_in_room = room.get_node("Hazards").get_children()
 		hazards_in_room.append_array(room.get_node("ItemSource").get_children())
 		if hazards_in_room.size() > 0:
-			var random_hazard_in_room = hazards_in_room[randi() % hazards_in_room.size()].position
-			var random_point_in_hazard = random_hazard_in_room + Vector2(rand_range(-10, 10), rand_range(-10, 10))
+			var random_hazard_in_room = hazards_in_room[randi() % hazards_in_room.size()]
+			if random_hazard_in_room.get_parent().name == "ItemSource":
+				toddler.going_to_hazardouds_object = true
+			var random_point_in_hazard = random_hazard_in_room.position + Vector2(rand_range(-10, 10), rand_range(-10, 10))
 			return [room.position + room.get_node("Center").position, room.position + random_point_in_hazard]
 	return []
 
 
 func path_to_outlet(toddler : Node) -> Array:
 	var path = find_path_between_rooms(rooms.get_node("KitchenRoom"), rooms.get_node("LivingRoom"), [], [])
-	path.append(rooms.get_node("LivingRoom").position + rooms.get_node("LivingRoom").get_node("Outlet").position)
+	var outlet_position = rooms.get_node("LivingRoom").position + rooms.get_node("LivingRoom").get_node("Outlet").position
+	var random_point_in_outlet = outlet_position + Vector2(rand_range(-10, 10), rand_range(-10, 10))
+	path.append(random_point_in_outlet)
 	return path
 
 

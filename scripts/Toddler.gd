@@ -35,6 +35,7 @@ var waiting = false
 var hungry_or_poopy_diaper = false
 var hungry = false
 var poopy_diaper = false
+var going_to_hazardouds_object = false
 var holding_hazardous_object = false
 var holding_fork = false
 var holding_scissor = false
@@ -126,6 +127,7 @@ func kill():
 
 
 func picked_up():
+	going_to_hazardouds_object = false
 	holding_hazardous_object = false
 	fork_bubble.visible = false
 	holding_fork = false
@@ -159,7 +161,8 @@ func clean_diaper():
 
 
 func receive_hazardous_object(hazardous_object):
-	if not hungry_or_poopy_diaper:
+	if not hungry_or_poopy_diaper and going_to_hazardouds_object:
+		going_to_hazardouds_object = true
 		holding_hazardous_object = true
 		walking_to_target = false
 		if hazardous_object == "Fork":
@@ -181,16 +184,16 @@ func _on_ToddlerTimers_timeout(timer):
 	if timer in ["DysentryTimer", "StarvationTimer", "ScissorTimer"]:
 		kill()
 	elif timer == "PoopTimer":
-		if holding_hazardous_object:
-			timers.start_default_poop_timer()
+		if holding_hazardous_object or going_to_hazardouds_object:
+			timers.start_timer("PoopTimer", 10)
 		else:
 			hungry_or_poopy_diaper = true
 			poopy_diaper = true
 			poop_bubble.visible = true
 			timers.start_default_dysentry_timer()
 	elif timer == "HungerTimer":
-		if holding_hazardous_object:
-			timers.start_default_hunger_timer()
+		if holding_hazardous_object or going_to_hazardouds_object:
+			timers.start_timer("HungerTimer", 10)
 		else:
 			hungry_or_poopy_diaper = true
 			hungry = true
