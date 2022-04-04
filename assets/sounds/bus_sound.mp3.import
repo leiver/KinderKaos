@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/bus_sound.mp3-422346b8472a4162cce1650b8ff3cd6a.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/bus_sound.mp3"
+dest_files=[ "res://.import/bus_sound.mp3-422346b8472a4162cce1650b8ff3cd6a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
