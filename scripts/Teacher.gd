@@ -21,6 +21,14 @@ func _process(delta):
 			velocity = move_and_slide(velocity)
 
 
+func disable():
+	set_process(false)
+	if not dead:
+		animatedSprite.play("default")
+	if is_holding_toddler:
+		held_toddler.disable()
+
+
 func get_input():
 		velocity = Vector2()
 		if Input.is_action_just_pressed("ui_accept"):

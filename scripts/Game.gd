@@ -5,6 +5,7 @@ onready var map = $Map
 onready var toddlers = $Toddlers
 onready var roaming_toddler_timer = $RoamingToddlerTimer
 onready var game_over_timer = $GameOverTimer
+onready var restart_grace_period = $RestartGracePeriodTimer
 onready var teacher = $Teacher
 onready var bus = $Bus
 onready var music = $TitleMusic
@@ -60,10 +61,12 @@ func start_roaming_toddler_timer():
 func game_over():
 	for toddler in toddlers.get_children():
 		toddler.disable()
-	teacher.set_process(false)
+	teacher.disable()
 	bus.disable()
 	music.stop()
 	game_over_sound.play()
+	restart_grace_period.start(1)
+	game_over = true
 
 	if teacher.dead:
 		game_over_modal.display_whoopsie_message()
@@ -103,3 +106,5 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			get_tree().change_scene("res://scenes/game/TitleScreen.tscn")
+		if event.pressed and event.scancode == KEY_SPACE and game_over and restart_grace_period.is_stopped():
+			get_tree().reload_current_scene()

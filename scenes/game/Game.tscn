@@ -87,6 +87,9 @@ stream = ExtResource( 8 )
 
 [node name="GameOverModal" parent="." instance=ExtResource( 9 )]
 
+[node name="RestartGracePeriodTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="i_am_dead" from="Teacher" to="." method="_on_Teacher_i_am_dead"]
 [connection signal="let_down_toddler" from="Teacher" to="." method="_on_Teacher_let_down_toddler"]
 [connection signal="timeout" from="RoamingToddlerTimer" to="." method="_on_RoamingToddlerTimer_timeout"]
