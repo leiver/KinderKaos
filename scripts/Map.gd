@@ -28,7 +28,8 @@ func rooms_with_toddler(toddler : Node) -> Array:
 func path_to_hazard_near_toddler(toddler : Node) -> Array:
 	for room in rooms_with_toddler(toddler):
 		var hazards_in_room = room.get_node("Hazards").get_children()
-		hazards_in_room.append_array(room.get_node("ItemSource").get_children())
+		if not toddler.hungry_or_poopy_diaper:
+			hazards_in_room.append_array(room.get_node("ItemSource").get_children())
 		if hazards_in_room.size() > 0:
 			var random_hazard_in_room = hazards_in_room[randi() % hazards_in_room.size()]
 			if random_hazard_in_room.get_parent().name == "ItemSource":
