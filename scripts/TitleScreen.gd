@@ -37,9 +37,3 @@ func _on_YaaySound_finished():
 
 func _on_ChaseTimer_timeout():
 	teach_and_toddler_moving = true
-
-
-func _unhandled_input(event):
-	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_ESCAPE:
-			get_tree().quit()

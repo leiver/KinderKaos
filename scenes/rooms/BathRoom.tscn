@@ -7,7 +7,7 @@
 extents = Vector2( 77, 49 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 31, 16 )
+extents = Vector2( 56.5, 16 )
 
 [node name="BathRoom" instance=ExtResource( 1 )]
 
@@ -26,5 +26,5 @@ texture = ExtResource( 2 )
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChangingTable" index="0"]
-position = Vector2( 44, -47 )
+position = Vector2( 18.5, -47 )
 shape = SubResource( 2 )
