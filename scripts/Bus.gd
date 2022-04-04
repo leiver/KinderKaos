@@ -42,4 +42,5 @@ func _on_DrivingTimer_timeout():
 
 func disable():
 	set_process(false)
+	driving_timer.stop()
 	sound_effect.stop()

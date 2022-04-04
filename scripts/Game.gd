@@ -11,6 +11,7 @@ onready var bus = $Bus
 onready var music = $TitleMusic
 onready var game_over_sound = $GameOverSound
 onready var game_over_modal = $GameOverModal
+onready var time_left_display = $TimeLeft
 
 var game_over = false
 var dead_toddlers = 0
@@ -21,6 +22,21 @@ func _ready():
 	amount_of_toddlers = toddlers.get_child_count()
 	start_roaming_toddler_timer()
 	connect_to_toddlers()
+
+
+func _process(delta):
+	if game_over_timer.time_left >= 100:
+		time_left_display.get_node("Hundreds").visible = true
+		time_left_display.get_node("Hundreds").play(String(int(game_over_timer.time_left / 100) % 10))
+	else:
+		time_left_display.get_node("Hundreds").visible = false
+	
+	if game_over_timer.time_left >= 10:
+		time_left_display.get_node("Tens").visible = true
+		time_left_display.get_node("Tens").play(String(int(game_over_timer.time_left / 10) % 10))
+	else:
+		time_left_display.get_node("Tens").visible = false
+	time_left_display.get_node("Ones").play(String(int(game_over_timer.time_left) % 10))
 
 
 func _on_RoamingToddlerTimer_timeout():
