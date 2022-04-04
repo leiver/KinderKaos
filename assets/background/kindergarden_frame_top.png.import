@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/kindergarden_frame.png-7b501b8f698d81314b7c3c6fd280f8d3.stex"
+path="res://.import/kindergarden_frame_top.png-0feaa5564bfdd57c51aa73abec08ff28.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/background/kindergarden_frame.png"
-dest_files=[ "res://.import/kindergarden_frame.png-7b501b8f698d81314b7c3c6fd280f8d3.stex" ]
+source_file="res://assets/background/kindergarden_frame_top.png"
+dest_files=[ "res://.import/kindergarden_frame_top.png-0feaa5564bfdd57c51aa73abec08ff28.stex" ]
 
 [params]
 

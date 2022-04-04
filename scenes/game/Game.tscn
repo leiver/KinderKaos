@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://scenes/game/Map.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/toddlers/Toddler.tscn" type="PackedScene" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://scenes/bus/Bus.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/sounds/yay_sound.mp3" type="AudioStream" id=8]
 [ext_resource path="res://scenes/game/GameOverModal.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/background/kindergarden_frame_bottom.png" type="Texture" id=10]
+[ext_resource path="res://assets/background/kindergarden_frame_middle.png" type="Texture" id=11]
+[ext_resource path="res://assets/background/kindergarden_frame_top.png" type="Texture" id=12]
 
 [node name="Game" type="Node2D"]
 script = ExtResource( 3 )
@@ -57,13 +60,30 @@ id = 4
 position = Vector2( 635, 231 )
 id = 5
 
-[node name="Teacher" parent="." instance=ExtResource( 6 )]
-position = Vector2( 545, 264 )
-
 [node name="Overhead" type="Sprite" parent="."]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 4 )
 centered = false
+
+[node name="TeacherSort" type="YSort" parent="."]
+
+[node name="Teacher" parent="TeacherSort" instance=ExtResource( 6 )]
+position = Vector2( 545, 264 )
+
+[node name="FrameBottom" type="Sprite" parent="TeacherSort"]
+position = Vector2( 517, 367 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 10 )
+
+[node name="FrameTop" type="Sprite" parent="TeacherSort"]
+position = Vector2( 517, 141 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 12 )
+
+[node name="FrameMiddle" type="Sprite" parent="TeacherSort"]
+position = Vector2( 517, 238 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 11 )
 
 [node name="RoamingToddlerTimer" type="Timer" parent="."]
 one_shot = true
@@ -90,7 +110,7 @@ stream = ExtResource( 8 )
 [node name="RestartGracePeriodTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="i_am_dead" from="Teacher" to="." method="_on_Teacher_i_am_dead"]
-[connection signal="let_down_toddler" from="Teacher" to="." method="_on_Teacher_let_down_toddler"]
+[connection signal="i_am_dead" from="TeacherSort/Teacher" to="." method="_on_Teacher_i_am_dead"]
+[connection signal="let_down_toddler" from="TeacherSort/Teacher" to="." method="_on_Teacher_let_down_toddler"]
 [connection signal="timeout" from="RoamingToddlerTimer" to="." method="_on_RoamingToddlerTimer_timeout"]
 [connection signal="timeout" from="GameOverTimer" to="." method="_on_GameOverTimer_timeout"]
