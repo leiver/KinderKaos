@@ -28,7 +28,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 76.5, 19 )
+extents = Vector2( 62.5, 13.5 )
 
 [node name="Bus" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
@@ -40,7 +40,7 @@ frames = SubResource( 5 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, 8 )
+position = Vector2( 4.5, 13.5 )
 shape = SubResource( 6 )
 
 [node name="DrivingTimer" type="Timer" parent="."]
