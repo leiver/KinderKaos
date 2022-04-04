@@ -11,7 +11,9 @@ onready var poop_bubble = $SpeechBubbles/PoopBubble
 onready var fork_bubble = $SpeechBubbles/ForkBubble
 onready var scissor_bubble = $SpeechBubbles/ScissorBubble
 onready var speech_bubbles = $SpeechBubbles
-onready var shocked_sound = $AudioStreamPlayer
+onready var eating_sound = $SFX/EatingSound
+onready var shocked_sound = $SFX/ShockedSound
+onready var battered_sound = $SFX/BatteredSound
 
 export var id : int
 
@@ -35,6 +37,7 @@ var holding_fork = false
 var holding_scissor = false
 var being_held = false
 var eating = false
+var getting_shocked = false
 
 var targets : Array
 var target : Vector2
@@ -70,7 +73,10 @@ func _process(delta):
 
 func set_animation():
 	if dead:
-		animated_sprite.play(death_reason)
+		if getting_shocked:
+			animated_sprite.play("getting_shocked")
+		else:
+			animated_sprite.play(death_reason)
 	elif eating:
 		animated_sprite.play("eating")
 	elif being_held:
@@ -122,7 +128,10 @@ func receive_path_to_target(received_targets : Array):
 
 func kill(reason):
 	if not dead:
-		shocked_sound.play()
+		if reason == "shocked":
+			shocked_sound.play()
+		else:
+			battered_sound.play()
 		death_reason = reason
 		dead = true
 		hungry = false
@@ -158,6 +167,7 @@ func feed():
 	hunger_bubble.visible = false
 	timers.start_default_eating_timer()
 	timers.stop_timer("StarvationTimer")
+	eating_sound.play()
 
 
 func clean_diaper():
@@ -185,7 +195,10 @@ func receive_hazardous_object(hazardous_object):
 
 func _on_Area2D_area_entered(area):
 	if area.name == "Outlet" and holding_fork:
+		getting_shocked = true
 		kill("shocked")
+		timers.start_default_shocked_timer()
+		
 
 
 func _on_ToddlerTimers_timeout(timer):
@@ -236,6 +249,9 @@ func _on_ToddlerTimers_timeout(timer):
 		hungry_or_poopy_diaper = false
 		hungry = false
 		timers.start_default_poop_timer()
+	
+	elif timer == "ShockedTimer":
+		getting_shocked = false
 
 
 func handle_rotation_timer_timeout():

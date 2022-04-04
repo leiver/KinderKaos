@@ -36,6 +36,10 @@ func start_default_eating_timer():
 	get_node("EatingTimer").start(2)
 
 
+func start_default_shocked_timer():
+	get_node("ShockedTimer").start(1.2)
+
+
 func _on_RotationTimer_timeout():
 	emit_signal("timeout", "RotationTimer")
 
@@ -61,7 +65,6 @@ func _on_StarvationTimer_timeout():
 
 
 func _on_PoopTimer_timeout():
-	print("sending poop timer signal")
 	emit_signal("timeout", "PoopTimer")
 
 
@@ -75,3 +78,7 @@ func _on_ScissorTimer_timeout():
 
 func _on_EatingTimer_timeout():
 	emit_signal("timeout", "EatingTimer")
+
+
+func _on_ShockedTimer_timeout():
+	emit_signal("timeout", "ShockedTimer")
