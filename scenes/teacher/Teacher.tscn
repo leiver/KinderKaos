@@ -139,6 +139,7 @@ position = Vector2( 0, 17 )
 shape = SubResource( 20 )
 
 [node name="Cookie" type="Sprite" parent="."]
+visible = false
 position = Vector2( 18, 11 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 3 )
