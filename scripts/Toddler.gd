@@ -112,10 +112,6 @@ func receive_path_to_target(received_targets : Array):
 		walking_to_target = true
 
 
-func disable_timers():
-	timers.stop_all_timers()
-
-
 func kill():
 	dead = true
 	hungry = false
@@ -183,6 +179,7 @@ func _on_Area2D_area_entered(area):
 func _on_ToddlerTimers_timeout(timer):
 	if timer in ["DysentryTimer", "StarvationTimer", "ScissorTimer"]:
 		kill()
+	
 	elif timer == "PoopTimer":
 		if holding_hazardous_object or going_to_hazardouds_object:
 			timers.start_timer("PoopTimer", 10)
@@ -191,6 +188,7 @@ func _on_ToddlerTimers_timeout(timer):
 			poopy_diaper = true
 			poop_bubble.visible = true
 			timers.start_default_dysentry_timer()
+	
 	elif timer == "HungerTimer":
 		if holding_hazardous_object or going_to_hazardouds_object:
 			timers.start_timer("HungerTimer", 10)
@@ -199,14 +197,18 @@ func _on_ToddlerTimers_timeout(timer):
 			hungry = true
 			hunger_bubble.visible = true
 			timers.start_timer("StarvationTimer", 30)
+	
 	elif timer == "SuicidalThoughtsTimer":
 		if not walking_to_target and not holding_scissor:
 			emit_signal("kill_me", self)
 		timers.start_default_suicidal_thoughts_timer()
+	
 	elif timer == "WaitTimer":
 		waiting = false
+	
 	elif timer == "WalkingTimer":
 		handle_walking_timer_timeout()
+	
 	elif timer == "RotationTimer":
 		handle_rotation_timer_timeout()
 
@@ -224,3 +226,7 @@ func handle_walking_timer_timeout():
 		timers.start_timer("WalkingTimer", rand_range(2, 4))
 	else:
 		timers.start_timer("WalkingTimer", rand_range(1, 3))
+
+
+func disable_timers():
+	timers.stop_all_timers()
