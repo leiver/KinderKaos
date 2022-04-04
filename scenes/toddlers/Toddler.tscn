@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/Toddler.gd" type="Script" id=1]
 [ext_resource path="res://assets/bubbles/cookie_bubble.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/bubbles/scissor_bubble.png" type="Texture" id=4]
 [ext_resource path="res://assets/bubbles/fork_bubble.png" type="Texture" id=5]
 [ext_resource path="res://assets/bubbles/poop_bubble.png" type="Texture" id=6]
+[ext_resource path="res://scenes/toddlers/ToddlerTimers.gd" type="Script" id=7]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -160,33 +161,34 @@ shape = SubResource( 2 )
 position = Vector2( 0, -3 )
 shape = SubResource( 1 )
 
-[node name="Timers" type="Node2D" parent="."]
+[node name="ToddlerTimers" type="Node2D" parent="."]
+script = ExtResource( 7 )
 
-[node name="RotationTimer" type="Timer" parent="Timers"]
+[node name="RotationTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="WalkingTimer" type="Timer" parent="Timers"]
+[node name="WalkingTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="WaitTimer" type="Timer" parent="Timers"]
+[node name="WaitTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="SuicidalThoughtsTimer" type="Timer" parent="Timers"]
+[node name="SuicidalThoughtsTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="HungerTimer" type="Timer" parent="Timers"]
+[node name="HungerTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="StarvationTimer" type="Timer" parent="Timers"]
+[node name="StarvationTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="PoopTimer" type="Timer" parent="Timers"]
+[node name="PoopTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="DysentryTimer" type="Timer" parent="Timers"]
+[node name="DysentryTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
-[node name="ScissorTimer" type="Timer" parent="Timers"]
+[node name="ScissorTimer" type="Timer" parent="ToddlerTimers"]
 one_shot = true
 
 [node name="SpeechBubbles" type="Node2D" parent="."]
@@ -220,12 +222,22 @@ z_index = 1
 texture = ExtResource( 4 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
-[connection signal="timeout" from="Timers/RotationTimer" to="." method="_on_RotationTimer_timeout"]
-[connection signal="timeout" from="Timers/WalkingTimer" to="." method="_on_WalkingTimer_timeout"]
-[connection signal="timeout" from="Timers/WaitTimer" to="." method="_on_WaitTimer_timeout"]
-[connection signal="timeout" from="Timers/SuicidalThoughtsTimer" to="." method="_on_SuicidalThoughtsTimer_timeout"]
-[connection signal="timeout" from="Timers/HungerTimer" to="." method="_on_HungerTimer_timeout"]
-[connection signal="timeout" from="Timers/StarvationTimer" to="." method="_on_StarvationTimer_timeout"]
-[connection signal="timeout" from="Timers/PoopTimer" to="." method="_on_PoopTimer_timeout"]
-[connection signal="timeout" from="Timers/DysentryTimer" to="." method="_on_DysentryTimer_timeout"]
-[connection signal="timeout" from="Timers/ScissorTimer" to="." method="_on_ScissorTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers" to="." method="_on_ToddlerTimers_timeout"]
+[connection signal="timeout" from="ToddlerTimers/RotationTimer" to="." method="_on_RotationTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/RotationTimer" to="ToddlerTimers" method="_on_RotationTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/WalkingTimer" to="." method="_on_WalkingTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/WalkingTimer" to="ToddlerTimers" method="_on_WalkingTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/WaitTimer" to="." method="_on_WaitTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/WaitTimer" to="ToddlerTimers" method="_on_WaitTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/SuicidalThoughtsTimer" to="." method="_on_SuicidalThoughtsTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/SuicidalThoughtsTimer" to="ToddlerTimers" method="_on_SuicidalThoughtsTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/HungerTimer" to="." method="_on_HungerTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/HungerTimer" to="ToddlerTimers" method="_on_HungerTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/StarvationTimer" to="." method="_on_StarvationTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/StarvationTimer" to="ToddlerTimers" method="_on_StarvationTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/PoopTimer" to="." method="_on_PoopTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/PoopTimer" to="ToddlerTimers" method="_on_PoopTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/DysentryTimer" to="." method="_on_DysentryTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/DysentryTimer" to="ToddlerTimers" method="_on_DysentryTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/ScissorTimer" to="." method="_on_ScissorTimer_timeout"]
+[connection signal="timeout" from="ToddlerTimers/ScissorTimer" to="ToddlerTimers" method="_on_ScissorTimer_timeout"]
