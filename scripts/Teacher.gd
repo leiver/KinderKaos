@@ -18,7 +18,7 @@ signal let_down_toddler
 func _process(delta):
 		if not dead:
 			get_input()
-			velocity = move_and_collide(velocity*delta)
+			velocity = move_and_slide(velocity)
 
 
 func get_input():

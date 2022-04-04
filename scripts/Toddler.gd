@@ -85,14 +85,14 @@ func idle(delta):
 	direction = fmod(direction + ((rotation_speed + (int(holding_scissor) * (PI/2))) * delta * rotation_direction) + (PI*2), PI*2)
 	if walking or holding_scissor:
 		velocity = Vector2.UP.rotated(direction) * (speed + (int(holding_scissor) * 50))
-		move_and_collide(velocity * delta)
+		move_and_slide(velocity)
 
 
 func walk_towards_target(delta):
 	direction = fmod(position.angle_to_point(target) + (PI*1.5), PI*2)
-	velocity = Vector2.UP.rotated(direction) * speed * delta
+	velocity = Vector2.UP.rotated(direction) * speed
 	var distance_to_target = position.distance_to(target)
-	if distance_to_target < position.distance_to(position + velocity):
+	if distance_to_target < position.distance_to(position + (velocity * delta)):
 		position = target
 		if targets.size() == 0:
 			walking_to_target = false
@@ -101,7 +101,7 @@ func walk_towards_target(delta):
 			wait_timer.start(0.5)
 			waiting = true
 	else:
-		move_and_collide(velocity)
+		move_and_slide(velocity)
 
 
 func receive_path_to_target(received_targets : Array):
@@ -140,7 +140,7 @@ func picked_up():
 
 func let_down():
 	being_held = false
-	suicidal_thoughts_timer.start(3)
+	suicidal_thoughts_timer.start(rand_range(5, 20))
 
 
 func feed():
@@ -209,9 +209,11 @@ func _on_WaitTimer_timeout():
 
 
 func _on_SuicidalThoughtsTimer_timeout():
-	if not walking_to_target:
+	if not walking_to_target and not holding_scissor:
 		emit_signal("kill_me", self)
 		start_suicidal_thoughts_timer()
+	
+	start_suicidal_thoughts_timer()
 
 
 func _on_HungerTimer_timeout():

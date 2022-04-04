@@ -103,7 +103,7 @@ position = Vector2( 486, 527 )
 [node name="PlayRoom" parent="Rooms" instance=ExtResource( 2 )]
 position = Vector2( 722, 194 )
 
-[node name="Walls" type="KinematicBody2D" parent="."]
+[node name="Walls" type="StaticBody2D" parent="."]
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
