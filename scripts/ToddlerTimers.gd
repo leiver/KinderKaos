@@ -4,8 +4,6 @@ signal timeout
 
 
 func start_timer(timer, seconds):
-	if timer == "PoopTimer":
-		print("starting poop timer for %s seconds" % seconds)
 	get_node(timer).start(seconds)
 
 
@@ -27,12 +25,11 @@ func start_default_hunger_timer():
 
 
 func start_default_poop_timer():
-	print("starting default poop timer")
-	get_node("PoopTimer").start(rand_range(10, 15))
+	get_node("PoopTimer").start(rand_range(30, 60))
 
 
 func start_default_dysentry_timer():
-	get_node("DysentryTimer").start(10)
+	get_node("DysentryTimer").start(30)
 
 
 func start_default_eating_timer():

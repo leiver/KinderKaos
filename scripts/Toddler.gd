@@ -196,7 +196,6 @@ func _on_ToddlerTimers_timeout(timer):
 		kill("battered")
 	
 	elif timer == "PoopTimer":
-		print("poop timer popped")
 		if holding_hazardous_object or going_to_hazardouds_object:
 			timers.start_timer("PoopTimer", 10)
 		else:
