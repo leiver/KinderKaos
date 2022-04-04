@@ -58,6 +58,10 @@ func handle_pick_up():
 			for area in pickup_box.get_overlapping_areas():
 				if "ChangingTable" == area.name:
 					held_toddler.clean_diaper()
+		if held_toddler.hungry:
+			for area in pickup_box.get_overlapping_areas():
+				if "CookieJar" == area.name:
+					held_toddler.feed()
 		held_toddler.let_down()
 		remove_child(held_toddler)
 		emit_signal("let_down_toddler", held_toddler, position + Vector2(15, 25))
