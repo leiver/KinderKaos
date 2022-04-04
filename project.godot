@@ -12,7 +12,7 @@ config_version=4
 
 config/name="KinderKaos"
 config/description="Intense nanny experience, kids will die!"
-run/main_scene="res://scenes/game/Game.tscn"
+run/main_scene="res://scenes/game/TitleScreen.tscn"
 
 [display]
 
