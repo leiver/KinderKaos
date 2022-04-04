@@ -113,7 +113,7 @@ animations = [ {
 extents = Vector2( 20.5, 18.5 )
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 20.5, 20.5 )
+extents = Vector2( 27, 25 )
 
 [sub_resource type="RectangleShape2D" id=22]
 extents = Vector2( 20.5, 18.5 )
@@ -131,10 +131,11 @@ position = Vector2( 1.5, 9.5 )
 shape = SubResource( 19 )
 
 [node name="PickupBox" type="Area2D" parent="."]
+position = Vector2( 1, 10 )
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupBox"]
-position = Vector2( 1.5, 27 )
+position = Vector2( 0, 17 )
 shape = SubResource( 20 )
 
 [node name="Cookie" type="Sprite" parent="."]

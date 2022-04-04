@@ -160,6 +160,7 @@ func clean_diaper():
 
 
 func receive_hazardous_object(hazardous_object):
+	print("kid %s is receiving hazardous object %s" % [id, hazardous_object])
 	if not hungry_or_poopy_diaper:
 		holding_hazardous_object = true
 		walking_to_target = false
