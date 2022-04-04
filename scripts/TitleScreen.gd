@@ -7,7 +7,7 @@ onready var chase_timer = $ChaseTimer
 onready var teach_and_toddler_original_pos
 
 var teach_and_toddler_goal_x = -102
-var teach_and_toddler_speed = 100
+var teach_and_toddler_speed = 150
 
 var starting = false
 var teach_and_toddler_moving = false
