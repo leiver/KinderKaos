@@ -52,7 +52,8 @@ func _ready():
 func disable():
 	set_process(false)
 	timers.stop_all_timers()
-	animated_sprite.play("default")
+	if not dead:
+		animated_sprite.play("default")
 	for speech_bubble in speech_bubbles.get_children():
 		speech_bubble.visible = false
 
