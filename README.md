@@ -3,7 +3,8 @@
 Submission for the 50th Ludum Dare Game jam. Made with [the Godot Engine](https://godotengine.org/).
 
 [Play the game](https://daredemon.itch.io/kinderkaos)
-[Ludume dare page](https://ldjam.com/events/ludum-dare/50/kinderkaos)
+
+[Ludum Dare page](https://ldjam.com/events/ludum-dare/50/kinderkaos)
 
 ## Description
 The kindergarden is understaffed and you are seriously outnumbered by these pesky, little rascals.
