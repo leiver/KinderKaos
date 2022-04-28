@@ -1,6 +1,6 @@
 # KinderKaos
 
-Submission for the 50th Ludum Dare Game jam. Made with [the Godot Engine](https://godotengine.org/).
+Submission for the 50th Ludum Dare game jam. Made with [the Godot Engine](https://godotengine.org/).
 
 [Play the game](https://daredemon.itch.io/kinderkaos)
 
@@ -18,10 +18,17 @@ Good luck!
 ## LDJam Scores
 
 **Overall**: 96th
+
 **Fun**: 83rd
+
 **Innovation**: 115t
+
 **Theme**: 203rd
+
 **Graphics**: 555th
+
 **Audio**: 200th
+
 **Humor**: 9th
+
 **Mood**: 223rd
